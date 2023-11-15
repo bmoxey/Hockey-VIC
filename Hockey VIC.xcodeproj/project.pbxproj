@@ -52,6 +52,8 @@
 		AFE291DF2B03BA16000C9B31 /* DetailScheduleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFE291DE2B03BA16000C9B31 /* DetailScheduleView.swift */; };
 		AFE291E12B03BD7B000C9B31 /* CenterSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFE291E02B03BD7B000C9B31 /* CenterSection.swift */; };
 		AFE291E42B03BF0E000C9B31 /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFE291E32B03BF0E000C9B31 /* GameView.swift */; };
+		AFED2CDF2B0573CB00482832 /* HeaderDivType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFED2CDE2B0573CB00482832 /* HeaderDivType.swift */; };
+		AFED2CE12B05741200482832 /* HeaderCompName.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFED2CE02B05741200482832 /* HeaderCompName.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -101,6 +103,8 @@
 		AFE291DE2B03BA16000C9B31 /* DetailScheduleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailScheduleView.swift; sourceTree = "<group>"; };
 		AFE291E02B03BD7B000C9B31 /* CenterSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CenterSection.swift; sourceTree = "<group>"; };
 		AFE291E32B03BF0E000C9B31 /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
+		AFED2CDE2B0573CB00482832 /* HeaderDivType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderDivType.swift; sourceTree = "<group>"; };
+		AFED2CE02B05741200482832 /* HeaderCompName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderCompName.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -212,6 +216,8 @@
 				AF6F77C52B0298C800BC8F15 /* SelectClubView.swift */,
 				AFCAEA412B038446008CA455 /* SelectTeamView.swift */,
 				AF0599102B03F8D500F00E41 /* DetailTeamView.swift */,
+				AFED2CDE2B0573CB00482832 /* HeaderDivType.swift */,
+				AFED2CE02B05741200482832 /* HeaderCompName.swift */,
 			);
 			path = Teams;
 			sourceTree = "<group>";
@@ -347,6 +353,7 @@
 				AFE291D72B03A728000C9B31 /* LadderView.swift in Sources */,
 				AF40FD712B045968006FAE35 /* GetPlayerData.swift in Sources */,
 				AF6F77C62B0298C800BC8F15 /* SelectClubView.swift in Sources */,
+				AFED2CE12B05741200482832 /* HeaderCompName.swift in Sources */,
 				AFE291E12B03BD7B000C9B31 /* CenterSection.swift in Sources */,
 				AF6F77BD2B02975200BC8F15 /* NetworkMonitor.swift in Sources */,
 				AF6F77C02B0297FB00BC8F15 /* NoNetworkView.swift in Sources */,
@@ -368,6 +375,7 @@
 				AF6F77C42B02983200BC8F15 /* MainTabView.swift in Sources */,
 				AF6F77D32B029F3300BC8F15 /* GeneralFunctions.swift in Sources */,
 				AF40FD612B043125006FAE35 /* LadderItemView.swift in Sources */,
+				AFED2CDF2B0573CB00482832 /* HeaderDivType.swift in Sources */,
 				AF1CE0CD2B02B1E000F70041 /* Structs.swift in Sources */,
 				AF05990D2B03CF6900F00E41 /* DetailPlayerView.swift in Sources */,
 				AFE291D32B03A6F0000C9B31 /* StatisticsView.swift in Sources */,
@@ -522,8 +530,8 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -551,8 +559,8 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

@@ -44,6 +44,7 @@ struct LadderView: View {
                                     }
                                 }
                             }
+                            .environment(\.defaultMinListRowHeight, 3)
                             .refreshable {
                                 sharedData.refreshLadder = true
                             }

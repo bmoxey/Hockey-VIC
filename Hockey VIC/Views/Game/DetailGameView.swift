@@ -14,6 +14,8 @@ struct DetailGameView: View {
         Section(header: CenterSection(title: "Game Details")) {
             VStack {
                 Text(myRound.dateTime)
+                    .font(.footnote)
+                    .foregroundStyle(Color.gray)
                     .frame(maxWidth: .infinity, alignment: .center)
                 if myRound.message != "" {
                     Text(myRound.message)

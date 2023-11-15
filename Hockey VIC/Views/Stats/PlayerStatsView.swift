@@ -52,6 +52,7 @@ struct PlayerStatsView: View {
                             }
                         }
                     }
+                    .environment(\.defaultMinListRowHeight, 3)
                     .refreshable {
                         haveData = false
                     }

@@ -80,7 +80,7 @@ struct DetailStatsHeaderView: View {
                     .foregroundStyle(Color(.gray))
             }
             .buttonStyle(BorderlessButtonStyle())
-        }
+        }.frame(height: 3)
     }
 }
 

@@ -59,19 +59,27 @@ func GetRoundData(mycompID: String, myDivID: String, myTeamName: String, current
                 if byes {
                     byeTeams.append(ShortTeamName(fullName: lines[i+1]))
                 } else {
-                    if lines[i+8].contains("www.hockeyvictoria.org.au/teams/") {
+                    if myRound.homeTeam == "" {
                         myRound.homeTeam = ShortTeamName(fullName: lines[i+1])
                         scores = lines[i+5]
-                    }
-                    if lines[i-8].contains("www.hockeyvictoria.org.au/teams/") {
-                        myRound.awayTeam = ShortTeamName(fullName: lines[i+1])
-                        (myRound.homeGoals, myRound.awayGoals) = GetScores(scores: scores, seperator: "vs")
-                        myRound.result = GetResult(myTeam: myTeamName, homeTeam: myRound.homeTeam, awayTeam: myRound.awayTeam, homeGoals: myRound.homeGoals, awayGoals: myRound.awayGoals)
-                        if scores == "vs" {
-                            if myRound.message == "" { myRound.message = "No results available."}
-                            myRound.result = "No Data"
-                        } else {
+                        if scores == "FF" || scores == "FL" {
+                            if scores == "FF" { myRound.message = "Forefeit"}
+                            if scores == "FL" { myRound.message = "Forced Loss"}
+                            scores = lines[i+12]
+                        }
+                        if lines[i+13] == "FF" { myRound.message = "Forefeit"}
+                        if lines[i+13] == "FL" { myRound.message = "Forced Loss"}
+                    } else {
+                        if myRound.awayTeam == "" {
+                            myRound.awayTeam = ShortTeamName(fullName: lines[i+1])
+                            (myRound.homeGoals, myRound.awayGoals) = GetScores(scores: scores, seperator: "vs")
                             myRound.result = GetResult(myTeam: myTeamName, homeTeam: myRound.homeTeam, awayTeam: myRound.awayTeam, homeGoals: myRound.homeGoals, awayGoals: myRound.awayGoals)
+                            if scores == "/div" {
+                                if myRound.message == "" { myRound.message = "No results available."}
+                                myRound.result = "No Data"
+                            } else {
+                                myRound.result = GetResult(myTeam: myTeamName, homeTeam: myRound.homeTeam, awayTeam: myRound.awayTeam, homeGoals: myRound.homeGoals, awayGoals: myRound.awayGoals)
+                            }
                         }
                     }
                 }
@@ -80,6 +88,7 @@ func GetRoundData(mycompID: String, myDivID: String, myTeamName: String, current
                 myRound.gameID = String(lines[i].split(separator: "/")[3])
                 myRound.id = UUID()
                 rounds.append(myRound)
+                myRound = Round(id: UUID(), roundNo: "", dateTime: "", field: "", venue: "", address: "", opponent: "", homeTeam: "", awayTeam: "", homeGoals: 0, awayGoals: 0, message: "", result: "No Data", played: "", gameID: "")
             }
         }
     }

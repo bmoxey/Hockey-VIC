@@ -33,9 +33,9 @@ struct SelectTeamView: View {
         NavigationStack {
             List {
                 ForEach(Dictionary(grouping: mySortedTeams, by: { $0.divType }).sorted(by: { $0.key < $1.key }), id: \.key) { (divType, teamsGroupedByDivType) in
-                    Section(header: HStack { Spacer(); Text(divType).font(.largeTitle); Spacer() }) {
+                    Section(header: HeaderDivType(divType: divType)) {
                         ForEach(Dictionary(grouping: teamsGroupedByDivType, by: { $0.compName }).sorted(by: { $0.key < $1.key }), id: \.key) { (compName, teamsGroupedByCompName) in
-                            Section(header: HStack { Spacer(); Text(compName).foregroundStyle(Color("AccentColor"));  Spacer() }) {
+                            Section(header: HeaderCompName(compName: compName)) {
                                 ForEach(teamsGroupedByCompName, id: \.self) { team in
                                     VStack {
                                         HStack {
@@ -74,7 +74,7 @@ struct SelectTeamView: View {
                         }
                     }
                 }
-            }
+            }.environment(\.defaultMinListRowHeight, 3)
         }
         .onAppear {
             if isNavigationLink {
