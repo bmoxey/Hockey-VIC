@@ -9,53 +9,34 @@ import SwiftUI
 import SwiftData
 
 struct ContentView: View {
-    @Environment(\.modelContext) private var modelContext
-    @Query private var items: [Item]
+    @Environment(\.modelContext) var context
+    @StateObject var networkMonitor = NetworkMonitor()
+    @State var stillLoading : Bool = false
+    @Query var teams: [Teams]
+    @Query(filter: #Predicate<Teams> {$0.isCurrent} ) var currentTeam: [Teams]
 
     var body: some View {
-        NavigationSplitView {
-            List {
-                ForEach(items) { item in
-                    NavigationLink {
-                        Text("Item at \(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))")
-                    } label: {
-                        Text(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))
-                    }
-                }
-                .onDelete(perform: deleteItems)
-            }
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    EditButton()
-                }
-                ToolbarItem {
-                    Button(action: addItem) {
-                        Label("Add Item", systemImage: "plus")
+        VStack {
+            if !networkMonitor.isConnected {
+                NoNetworkView()
+            } else {
+                if teams.isEmpty || stillLoading {
+                    SelectCompetitionView(stillLoading: $stillLoading)
+                } else {
+                    if currentTeam.isEmpty {
+                        SelectClubView(isNavigationLink: false, isResetRefresh: false)
+                    } else {
+                        MainTabView()
                     }
                 }
             }
-        } detail: {
-            Text("Select an item")
         }
-    }
-
-    private func addItem() {
-        withAnimation {
-            let newItem = Item(timestamp: Date())
-            modelContext.insert(newItem)
-        }
-    }
-
-    private func deleteItems(offsets: IndexSet) {
-        withAnimation {
-            for index in offsets {
-                modelContext.delete(items[index])
-            }
-        }
+        .onAppear { networkMonitor.start() }
+        .onDisappear { networkMonitor.stop() }
     }
 }
 
 #Preview {
     ContentView()
-        .modelContainer(for: Item.self, inMemory: true)
+        .modelContainer(for: Teams.self, inMemory: true)
 }
