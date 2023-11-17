@@ -8,7 +8,7 @@
 import Foundation
 
 func GetRoundData(mycompID: String, myDivID: String, myTeamName: String, currentRound: String) -> (String, String, String, [Round], [String], String) {
-    var myRound = Round(id: UUID(), roundNo: "", dateTime: "", field: "", venue: "", address: "", opponent: "", homeTeam: "", awayTeam: "", homeGoals: 0, awayGoals: 0, message: "", result: "No Data", played: "", gameID: "")
+    var myRound = Round(id: UUID(), roundNo: "", myDate: Date(), dateTime: "", field: "", venue: "", address: "", opponent: "", homeTeam: "", awayTeam: "", homeGoals: 0, awayGoals: 0, message: "", result: "No Data", played: "", gameID: "")
     var rounds = [Round]()
     var lines: [String] = []
     var byeTeams: [String] = []
@@ -49,7 +49,7 @@ func GetRoundData(mycompID: String, myDivID: String, myTeamName: String, current
             if lines[i].contains("BYEs") { byes = true }
             if lines[i].contains("col-md pb-3 pb-lg-0 text-center text-md-left") {
                 myRound.dateTime = lines[i+1].trimmingCharacters(in: .whitespacesAndNewlines) + " " + lines[i+3].trimmingCharacters(in: .whitespacesAndNewlines)
-                (myRound.message, myRound.played) = GetStart(inputDate: myRound.dateTime)
+                (myRound.message, myRound.myDate) = GetStart(inputDate: myRound.dateTime)
             }
             if lines[i].contains("https://www.hockeyvictoria.org.au/venues/") {
                 myRound.venue = lines[i+1]
@@ -88,7 +88,7 @@ func GetRoundData(mycompID: String, myDivID: String, myTeamName: String, current
                 myRound.gameID = String(lines[i].split(separator: "/")[3])
                 myRound.id = UUID()
                 rounds.append(myRound)
-                myRound = Round(id: UUID(), roundNo: "", dateTime: "", field: "", venue: "", address: "", opponent: "", homeTeam: "", awayTeam: "", homeGoals: 0, awayGoals: 0, message: "", result: "No Data", played: "", gameID: "")
+                myRound = Round(id: UUID(), roundNo: "", myDate: Date(), dateTime: "", field: "", venue: "", address: "", opponent: "", homeTeam: "", awayTeam: "", homeGoals: 0, awayGoals: 0, message: "", result: "No Data", played: "", gameID: "")
             }
         }
     }

@@ -38,6 +38,7 @@ struct Rounds: Codable {
 struct Round: Codable {
     var id: UUID
     var roundNo: String
+    var myDate: Date
     var dateTime: String
     var field: String
     var venue: String

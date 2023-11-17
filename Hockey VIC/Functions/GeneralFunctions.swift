@@ -181,32 +181,17 @@ func ShortDivName(fullName: String) -> String {
     return newString
 }
 
-func GetStart(inputDate: String?) -> (String, String) {
-    var message: String
-    var played: String
-    
+func GetStart(inputDate: String?) -> (String, Date) {
+    var message: String = ""
     let dateFormatter = DateFormatter()
     dateFormatter.dateFormat = "E dd MMM yyyy HH:mm"
     
     guard let inputDate = inputDate,
           let startDate = dateFormatter.date(from: inputDate) else {
         message = "Invalid date"
-        played = "Completed"
-        return (message, played)
+        return (message, Date())
     }
-    let today = Date.now
-    
-    let diffComponents = Calendar.current.dateComponents([.day, .hour, .minute], from: today, to: startDate)
-    let days = diffComponents.day
-    let hrs = diffComponents.hour
-    if days! > 0 || (days! == 0 && hrs! > 0){
-        message = "Starts in \(days!) days and \(hrs!) hours"
-        played = "Upcoming"
-    } else {
-        message = ""
-        played = "Completed"
-    }
-    return (message, played)
+    return (message, startDate)
 }
 
 func GetScores(scores: String, seperator: String) -> (Int, Int) {

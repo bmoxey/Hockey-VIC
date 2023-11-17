@@ -30,14 +30,21 @@ struct RoundView: View {
                             ErrorMessageView(errMsg: errMsg)
                         } else {
                             List {
+                                
                                 Section(header: DetailRoundHeaderView(prev: prev, current: current, next: next,
-                                    onPrevButtonTap: { loadData(roundName: prev) }, onNextButtonTap: { loadData(roundName: next) })) {
-                                    ForEach(rounds, id: \.id) { round in
-                                        NavigationLink(destination: GameView(gameNumber: round.gameID, myTeam: currentTeam[0].teamName, myTeamID: currentTeam[0].teamID)) {
-                                            DetailRoundView(myTeam: currentTeam[0].teamName, myRound: round)
+                            onPrevButtonTap: { loadData(roundName: prev) }, onNextButtonTap: { loadData(roundName: next) })) {
+
+                                ForEach(Array(Dictionary(grouping: rounds, by: { $0.dateTime })), id: \.0) { (date, roundByDate) in
+                                    Section(header: HighlightSection(title: date)) {
+                                        ForEach(roundByDate, id: \.id) { round in
+                                            NavigationLink(destination: GameView(gameNumber: round.gameID, myTeam: currentTeam[0].teamName, myTeamID: currentTeam[0].teamID)) {
+                                                DetailRoundView(myTeam: currentTeam[0].teamName, myRound: round)
+                                                }
+                                            }
                                         }
                                     }
                                 }
+                                
                                 ForEach(byeTeams, id: \.self) {name in
                                     Section(header: Text("Teams with a bye")){
                                         HStack {
@@ -49,8 +56,11 @@ struct RoundView: View {
                                     }
                                 }
                             }
+                            .environment(\.defaultMinListRowHeight, 3)
                             .refreshable {
-                                haveData = false
+                                Task {
+                                    haveData = false
+                                }
                             }
                         }
                     }

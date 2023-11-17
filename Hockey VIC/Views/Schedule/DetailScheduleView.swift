@@ -10,7 +10,13 @@ import SwiftUI
 struct DetailScheduleView: View {
     let myTeam: String
     let round: Round
+    var formattedDate: String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "EEE d MMM @ h:mm a"
+        return dateFormatter.string(from: round.myDate)
+    }
     var body: some View {
+        let diff = Calendar.current.dateComponents([.day, .hour, .minute], from: Date.now, to: round.myDate)
         VStack {
             Text("\(round.roundNo)")
                 .font(.footnote)
@@ -22,7 +28,7 @@ struct DetailScheduleView: View {
                     .frame(width: 60, height: 60)
                 VStack {
                     HStack {
-                        Text("\(round.dateTime)")
+                        Text("\(formattedDate)")
                             .foregroundStyle(Color(round.result == "BYE" ? "AccentColor" : "DefaultColor"))
                         Spacer()
                     }
@@ -35,9 +41,17 @@ struct DetailScheduleView: View {
             }
             if round.message != "" {
                 Text("\(round.message)")
-                    .foregroundStyle(Color(.red))
+                    .foregroundStyle(Color(.purple))
             }
-            if round.result != "No Data" || round.message == "" {
+            if diff.day! >= 0 && diff.hour! >= 0 && diff.minute! >= 0 {
+                if diff.day! == 0 {
+                    Text("Starts in \(diff.hour!) hours and \(diff.minute!) minutes")
+                        .foregroundStyle(Color(.pink))
+                } else {
+                Text("Starts in \(diff.day!) days and \(diff.hour!) hours")
+                        .foregroundStyle(Color(.red))
+                }
+            } else {
                 HStack {
                     HStack {
                         Spacer()
@@ -82,5 +96,5 @@ struct DetailScheduleView: View {
 }
 
 #Preview {
-    DetailScheduleView(myTeam: "MHSOB", round: Round(id: UUID(), roundNo: "Round 1", dateTime: "Sat 15 Apr 2023 @ 14:00", field: "MBT", venue: "Melbourne Hockey Field", address: "21 Smith St", opponent: "Hawthorn", homeTeam: "Hawthorn", awayTeam: "MHSOB", homeGoals: 6, awayGoals: 11, message: "", result: "Win", played: "Completed", gameID: "1439971"))
+    DetailScheduleView(myTeam: "MHSOB", round: Round(id: UUID(), roundNo: "Round 1",  myDate: Date(), dateTime: "", field: "MBT", venue: "Melbourne Hockey Field", address: "21 Smith St", opponent: "Hawthorn", homeTeam: "Hawthorn", awayTeam: "MHSOB", homeGoals: 6, awayGoals: 11, message: "", result: "Win", played: "Completed", gameID: "1439971"))
 }

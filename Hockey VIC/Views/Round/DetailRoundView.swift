@@ -10,12 +10,18 @@ import SwiftUI
 struct DetailRoundView: View {
  var myTeam: String
  var myRound: Round
+var formattedTime: String {
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateFormat = "h:mm a"
+    return dateFormatter.string(from: myRound.myDate)
+}
  var body: some View {
      
      VStack {
-         Text("\(myRound.dateTime) @ \(myRound.field)")
+         Text("\(formattedTime) @ \(myRound.field)")
              .font(.footnote)
              .foregroundStyle(Color.gray)
+             .padding(.bottom, -8)
          if myRound.message != "" {
              Text(myRound.message)
                  .foregroundColor(.red)
@@ -67,5 +73,5 @@ struct DetailRoundView: View {
 }
 
 #Preview {
- DetailRoundView(myTeam: "MHSOB", myRound: Round(id: UUID(), roundNo: "Round 1", dateTime: "Sat 15 Apr 2023 @ 14:00", field: "MBT", venue: "Melbourne Hockey Field", address: "21 Smith St", opponent: "Hawthorn", homeTeam: "Hawthorn", awayTeam: "MHSOB", homeGoals: 6, awayGoals: 7, message: "", result: "Win", played: "Completed", gameID: "1439971"))
+    DetailRoundView(myTeam: "MHSOB", myRound: Round(id: UUID(), roundNo: "Round 1", myDate: Date(), dateTime: "", field: "MBT", venue: "Melbourne Hockey Field", address: "21 Smith St", opponent: "Hawthorn", homeTeam: "Hawthorn", awayTeam: "MHSOB", homeGoals: 6, awayGoals: 7, message: "", result: "Win", played: "Completed", gameID: "1439971"))
 }

@@ -10,8 +10,8 @@ import Foundation
 func GetGameData(gameNumber: String, myTeam: String) -> (Round, [Player], [Player], [Round], String) {
     var lines: [String] = []
     var currentTeamName: String = ""
-    var myRound: Round = Round(id: UUID(), roundNo: "", dateTime: "", field: "", venue: "", address: "", opponent: "", homeTeam: "", awayTeam: "", homeGoals: 0, awayGoals: 0, message: "", result: "No Data", played: "", gameID: "")
-    var myGame: Round = Round(id: UUID(), roundNo: "", dateTime: "", field: "", venue: "", address: "", opponent: "", homeTeam: "", awayTeam: "", homeGoals: 0, awayGoals: 0, message: "", result: "", played: "", gameID: "")
+    var myRound: Round = Round(id: UUID(), roundNo: "",  myDate: Date(), dateTime: "", field: "", venue: "", address: "", opponent: "", homeTeam: "", awayTeam: "", homeGoals: 0, awayGoals: 0, message: "", result: "No Data", played: "", gameID: "")
+    var myGame: Round = Round(id: UUID(), roundNo: "", myDate: Date(), dateTime: "", field: "", venue: "", address: "", opponent: "", homeTeam: "", awayTeam: "", homeGoals: 0, awayGoals: 0, message: "", result: "", played: "", gameID: "")
     var homePlayers: [Player] = []
     var awayPlayers: [Player] = []
     var otherGames: [Round] = []
@@ -66,7 +66,7 @@ func GetGameData(gameNumber: String, myTeam: String) -> (Round, [Player], [Playe
             if lines[i].contains("Results for this match are not currently available.") { myRound.result = "No Data" }
             if lines[i] == "Date &amp; time" {
                 myRound.dateTime = lines[i+2].trimmingCharacters(in: .whitespacesAndNewlines)
-                (myRound.message, myRound.played) = GetStart(inputDate: myRound.dateTime)
+                (myRound.message, myRound.myDate) = GetStart(inputDate: myRound.dateTime)
             }
             if lines[i] == "Venue" {
                 myRound.venue = lines[i+2].trimmingCharacters(in: .whitespacesAndNewlines)
@@ -117,7 +117,7 @@ func GetGameData(gameNumber: String, myTeam: String) -> (Round, [Player], [Playe
             if lines[i].contains("col-md pb-3 pb-lg-0 text-center text-md-left") {
                 myGame.roundNo = lines[i+3]
                 myGame.dateTime = lines[i+7].trimmingCharacters(in: .whitespacesAndNewlines) + " " + lines[i+9].trimmingCharacters(in: .whitespacesAndNewlines)
-                (myGame.message, myGame.played) = GetStart(inputDate: myGame.dateTime)
+                (myGame.message, myGame.myDate) = GetStart(inputDate: myGame.dateTime)
             }
             if lines[i].contains("https://www.hockeyvictoria.org.au/venues") {
                 myGame.venue = lines[i+1]
@@ -146,7 +146,7 @@ func GetGameData(gameNumber: String, myTeam: String) -> (Round, [Player], [Playe
                 }
                 myGame.id = UUID()
                 otherGames.append(myGame)
-                myGame = Round(id: UUID(), roundNo: "", dateTime: "", field: "", venue: "", address: "", opponent: "", homeTeam: "", awayTeam: "", homeGoals: 0, awayGoals: 0, message: "", result: "", played: "", gameID: "")
+                myGame = Round(id: UUID(), roundNo: "", myDate: Date(), dateTime: "", field: "", venue: "", address: "", opponent: "", homeTeam: "", awayTeam: "", homeGoals: 0, awayGoals: 0, message: "", result: "", played: "", gameID: "")
             }
 
         }

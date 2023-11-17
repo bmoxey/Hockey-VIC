@@ -14,8 +14,8 @@ struct GameView: View {
     @State var myTeam: String
     @State var myTeamID: String
     @State var errMsg = ""
-    @State var myRound: Round = Round(id: UUID(), roundNo: "", dateTime: "", field: "", venue: "", address: "", opponent: "", homeTeam: "", awayTeam: "", homeGoals: 0, awayGoals: 0, message: "", result: "", played: "", gameID: "")
-    @State var myGame: Round = Round(id: UUID(), roundNo: "", dateTime: "", field: "", venue: "", address: "", opponent: "", homeTeam: "", awayTeam: "", homeGoals: 0, awayGoals: 0, message: "", result: "", played: "", gameID: "")
+    @State var myRound: Round = Round(id: UUID(), roundNo: "",  myDate: Date(), dateTime: "", field: "", venue: "", address: "", opponent: "", homeTeam: "", awayTeam: "", homeGoals: 0, awayGoals: 0, message: "", result: "", played: "", gameID: "")
+    @State var myGame: Round = Round(id: UUID(), roundNo: "",  myDate: Date(), dateTime: "", field: "", venue: "", address: "", opponent: "", homeTeam: "", awayTeam: "", homeGoals: 0, awayGoals: 0, message: "", result: "", played: "", gameID: "")
     @State private var haveData = false
     @State private var homePlayers: [Player] = []
     @State private var awayPlayers: [Player] = []
