@@ -85,6 +85,7 @@ struct GameView: View {
                     .frame(width: 45, height: 45)
             }
         }
+        .toolbarColorScheme(.dark, for: .navigationBar)
         .toolbarBackground(Color("BarBackground"), for: .navigationBar)
         .toolbarBackground(.visible, for: .navigationBar)
     }

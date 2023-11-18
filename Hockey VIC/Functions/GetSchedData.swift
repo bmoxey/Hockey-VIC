@@ -22,8 +22,8 @@ func GetSchedData(mycompID: String, myTeamID: String, myTeamName: String) -> ([R
         }
         if lines[i].contains("col-md pb-3 pb-lg-0 text-center text-md-left") {
             myRound.roundNo = lines[i+3]
-            myRound.dateTime = lines[i+6].trimmingCharacters(in: .whitespacesAndNewlines) + " " + lines[i+8].trimmingCharacters(in: .whitespacesAndNewlines)
-            (myRound.message, myRound.myDate) = GetStart(inputDate: myRound.dateTime)
+            let dateTime = lines[i+6].trimmingCharacters(in: .whitespacesAndNewlines) + " " + lines[i+8].trimmingCharacters(in: .whitespacesAndNewlines)
+            (myRound.message, myRound.myDate) = GetStart(inputDate: dateTime)
         }
         if lines[i].contains("https://www.hockeyvictoria.org.au/venues") {
             myRound.venue = lines[i+1]

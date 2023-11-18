@@ -37,8 +37,6 @@ struct NoGameView: View {
                     Image("NoGame")
                         .resizable()
                         .frame(width: 60, height: 60)
-                    Text("")
-                        .frame(width: 20)
                 }
                 .padding(.horizontal, -8)
             }

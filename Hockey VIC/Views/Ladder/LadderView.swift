@@ -47,7 +47,7 @@ struct LadderView: View {
             .toolbar {
                 ToolbarItem(placement: .principal) {
                     VStack {
-                        Text(currentTeam[0].divName)
+                        Text(currentTeam.isEmpty ? "No Div" : currentTeam[0].divName)
                             .foregroundStyle(Color("BarForeground"))
                             .fontWeight(.semibold)
                     }
@@ -58,11 +58,12 @@ struct LadderView: View {
                         .font(.title3)
                 }
                 ToolbarItem(placement: .topBarTrailing) {
-                    Image(currentTeam[0].clubName)
+                    Image(currentTeam.isEmpty ? "BYE" : currentTeam[0].clubName)
                         .resizable()
                         .frame(width: 45, height: 45)
                 }
             }
+            .toolbarColorScheme(.dark, for: .navigationBar)
             .toolbarBackground(Color("BarBackground"), for: .navigationBar)
             .toolbarBackground(.visible, for: .navigationBar)
             .toolbarBackground(Color("BarBackground"), for: .tabBar)

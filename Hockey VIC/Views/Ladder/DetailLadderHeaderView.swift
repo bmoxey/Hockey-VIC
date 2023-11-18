@@ -34,7 +34,7 @@ struct DetailLadderHeaderView: View {
                 .font(.footnote)
                 .frame(width: 12)
         }
-        .frame(height: 3)
+        .frame(height: 5)
     }
 }
 

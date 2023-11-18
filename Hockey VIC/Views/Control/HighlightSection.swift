@@ -19,7 +19,7 @@ struct HighlightSection: View {
 //                .font(.subheadline)
             Spacer()
         }
-        .frame(height: 3)
+        .frame(height: 5)
     }
 }
 #Preview {

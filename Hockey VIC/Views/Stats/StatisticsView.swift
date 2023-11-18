@@ -42,7 +42,7 @@ struct StatisticsView: View {
                                     }
                                 }
                             }
-                            .environment(\.defaultMinListRowHeight, 3)
+                            .environment(\.defaultMinListRowHeight, 5)
                             .refreshable {
                                 sharedData.refreshStats = true
                             }
@@ -68,6 +68,7 @@ struct StatisticsView: View {
                     }
                 }
                 .padding(.horizontal, -8)
+                .toolbarColorScheme(.dark, for: .navigationBar)
                 .toolbarBackground(Color("BarBackground"), for: .navigationBar)
                 .toolbarBackground(.visible, for: .navigationBar)
                 .toolbarBackground(Color("BarBackground"), for: .tabBar)

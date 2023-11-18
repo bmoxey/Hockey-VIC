@@ -39,7 +39,6 @@ struct Round: Codable {
     var id: UUID
     var roundNo: String
     var myDate: Date
-    var dateTime: String
     var field: String
     var venue: String
     var address: String
@@ -57,7 +56,6 @@ struct Round: Codable {
         self.id = UUID()
         self.roundNo = ""
         self.myDate = Date()
-        self.dateTime = ""
         self.field = ""
         self.venue = ""
         self.address = ""

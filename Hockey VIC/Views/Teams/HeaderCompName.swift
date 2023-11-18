@@ -16,7 +16,7 @@ struct HeaderCompName: View {
                 .foregroundStyle(Color.gray)
                 .font(.footnote)
             Spacer()
-        }.frame(height: 3)
+        }.frame(height: 5)
     }
 }
 

@@ -48,8 +48,8 @@ func GetRoundData(mycompID: String, myDivID: String, myTeamName: String, current
         for i in 0 ..< lines.count {
             if lines[i].contains("BYEs") { byes = true }
             if lines[i].contains("col-md pb-3 pb-lg-0 text-center text-md-left") {
-                myRound.dateTime = lines[i+1].trimmingCharacters(in: .whitespacesAndNewlines) + " " + lines[i+3].trimmingCharacters(in: .whitespacesAndNewlines)
-                (myRound.message, myRound.myDate) = GetStart(inputDate: myRound.dateTime)
+                let dateTime = lines[i+1].trimmingCharacters(in: .whitespacesAndNewlines) + " " + lines[i+3].trimmingCharacters(in: .whitespacesAndNewlines)
+                (myRound.message, myRound.myDate) = GetStart(inputDate: dateTime)
             }
             if lines[i].contains("https://www.hockeyvictoria.org.au/venues/") {
                 myRound.venue = lines[i+1]

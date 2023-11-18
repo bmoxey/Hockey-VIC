@@ -1,7 +1,18 @@
 {
   "images" : [
     {
-      "filename" : "Frankston.png",
+      "filename" : "Frankston2-dark 1.png",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "light"
+        }
+      ],
+      "filename" : "Frankston2 1.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
@@ -12,11 +23,21 @@
           "value" : "dark"
         }
       ],
-      "filename" : "Frankston-dark.png",
+      "filename" : "Frankston2-dark.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "light"
+        }
+      ],
       "idiom" : "universal",
       "scale" : "2x"
     },
@@ -31,6 +52,16 @@
       "scale" : "2x"
     },
     {
+      "idiom" : "universal",
+      "scale" : "3x"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "light"
+        }
+      ],
       "idiom" : "universal",
       "scale" : "3x"
     },

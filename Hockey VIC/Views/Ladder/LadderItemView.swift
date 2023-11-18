@@ -55,6 +55,7 @@ struct LadderItemView: View {
             }
         }
         .padding(.horizontal, -8)
+        .toolbarColorScheme(.dark, for: .navigationBar)
         .toolbarBackground(Color("BarBackground"), for: .navigationBar)
         .toolbarBackground(.visible, for: .navigationBar)
         .toolbarBackground(Color("BarBackground"), for: .tabBar)

@@ -18,11 +18,15 @@ struct DetailScheduleView: View {
     var body: some View {
         let diff = Calendar.current.dateComponents([.day, .hour, .minute], from: Date.now, to: round.myDate)
         VStack {
-            Text("\(round.roundNo)")
-                .font(.footnote)
-                .foregroundStyle(Color.gray)
-                .padding(.bottom, -8)
-            HStack {            
+            HStack {
+                Text("")
+                    .frame(width: 12)
+                Text("\(round.roundNo)")
+                    .font(.footnote)
+                    .foregroundStyle(Color.gray)
+                    .padding(.bottom, -8)
+            }
+            HStack {
                 Image(round.roundNo.contains("Grand Final") ? round.result: ShortClubName(fullName: round.opponent))
                     .resizable()
                     .frame(width: 60, height: 60)
@@ -38,19 +42,34 @@ struct DetailScheduleView: View {
                 }
             }
             if round.message != "" {
-                Text("\(round.message)")
-                    .foregroundStyle(Color(.purple))
+                HStack {
+                    Text("")
+                        .frame(width: 12)
+                    Spacer()
+                    Text("\(round.message)")
+                        .foregroundStyle(Color(.purple))
+                    Spacer()
+                }
+                
             }
             if diff.day! >= 0 && diff.hour! >= 0 && diff.minute! >= 0 {
-                if diff.day! == 0 {
-                    Text("Starts in \(diff.hour!) hours and \(diff.minute!) minutes")
-                        .foregroundStyle(Color(.pink))
-                } else {
-                Text("Starts in \(diff.day!) days and \(diff.hour!) hours")
-                        .foregroundStyle(Color(.red))
+                HStack {
+                    Text("")
+                        .frame(width: 12)
+                    Spacer()
+                    if diff.day! == 0 {
+                        Text("Starts in \(diff.hour!) hours and \(diff.minute!) minutes")
+                            .foregroundStyle(Color(.pink))
+                    } else {
+                        Text("Starts in \(diff.day!) days and \(diff.hour!) hours")
+                            .foregroundStyle(Color(.red))
+                    }
+                    Spacer()
                 }
             } else {
                 HStack {
+                    Text("")
+                        .frame(width: 12)
                     HStack {
                         Spacer()
                         Text(String(repeating: "●", count: round.homeGoals))

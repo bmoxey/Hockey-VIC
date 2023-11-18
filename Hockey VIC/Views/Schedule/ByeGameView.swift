@@ -22,8 +22,6 @@ struct ByeGameView: View {
                     .font(.footnote)
                     .foregroundStyle(Color.gray)
                     .padding(.bottom, -8)
-                Text("")
-                    .frame(width: 12)
             }
             HStack {
                 Image("BYE")
@@ -46,8 +44,6 @@ struct ByeGameView: View {
                 Image("BYE")
                     .resizable()
                     .frame(width: 60, height: 60)
-                Text("")
-                    .frame(width: 20)
             }
             .padding(.horizontal, -8)
         }

@@ -52,7 +52,7 @@ struct PlayerStatsView: View {
                             }
                         }
                     }
-                    .environment(\.defaultMinListRowHeight, 3)
+                    .environment(\.defaultMinListRowHeight, 5)
                     .refreshable {
                         haveData = false
                     }
@@ -79,6 +79,7 @@ struct PlayerStatsView: View {
                     .frame(width: 45, height: 45)
             }
         }
+        .toolbarColorScheme(.dark, for: .navigationBar)
         .toolbarBackground(Color("BarBackground"), for: .navigationBar)
         .toolbarBackground(.visible, for: .navigationBar)
         .toolbarBackground(Color("BarBackground"), for: .tabBar)
