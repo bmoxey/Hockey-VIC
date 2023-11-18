@@ -8,7 +8,7 @@
 import Foundation
 
 func GetSchedData(mycompID: String, myTeamID: String, myTeamName: String) -> ([Round], String) {
-    var myRound = Round(id: UUID(), roundNo: "", myDate: Date(), dateTime: "", field: "", venue: "", address: "", opponent: "", homeTeam: "", awayTeam: "", homeGoals: 0, awayGoals: 0, message: "", result: "No Data", played: "", gameID: "")
+    var myRound = Round()
     var rounds = [Round]()
     var lines: [String] = []
     var errMsg = ""
@@ -59,7 +59,7 @@ func GetSchedData(mycompID: String, myTeamID: String, myTeamName: String) -> ([R
             myRound.gameID = String(String(lines[i]).split(separator: "/")[3])
             myRound.id = UUID()
             rounds.append(myRound)
-            myRound = Round(id: UUID(), roundNo: "",  myDate: Date(), dateTime: "", field: "", venue: "", address: "", opponent: "", homeTeam: "", awayTeam: "", homeGoals: 0, awayGoals: 0, message: "", result: "No Data", played: "", gameID: "")
+            myRound = Round()
             FL = false
             FF = false
         }

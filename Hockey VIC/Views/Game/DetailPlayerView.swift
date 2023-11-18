@@ -11,6 +11,10 @@ struct DetailPlayerView: View {
     var player: Player
     var body: some View {
         HStack {
+            if player.captain {
+                Image(systemName: "star.circle")
+                    .foregroundStyle(Color("BarForeground"))
+            }
             if player.fillin {
                 Image(systemName: "person.fill.badge.plus")
                     .foregroundColor(Color("AccentColor"))
@@ -18,10 +22,6 @@ struct DetailPlayerView: View {
             Text(player.name)
             if player.goalie == 1 {
                 Text("(GK)")
-            }
-            if player.captain {
-                Image(systemName: "star.circle")
-                    .foregroundStyle(Color("BarForeground"))
             }
             if player.greenCards > 0 {
                 Text(String(repeating: "▲", count: player.greenCards))

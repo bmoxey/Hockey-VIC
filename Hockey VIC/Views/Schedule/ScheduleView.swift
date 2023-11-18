@@ -28,12 +28,12 @@ struct ScheduleView: View {
                                     if !currentTeam.isEmpty {
                                         let round = viewModel.rounds[index]
                                         if index > 0 {
-                                            NoGameView(prev: viewModel.rounds[index - 1], current: round)
+                                            NoGameView(myTeam: currentTeam[0].teamName, prev: viewModel.rounds[index - 1], current: round)
                                         }
                                         if round.opponent == "BYE" {
-                                            DetailScheduleView(myTeam: currentTeam[0].teamName, round: round)
+                                            ByeGameView(myTeam: currentTeam[0].teamName, round: round)
                                         } else {
-                                            NavigationLink(destination: GameView(gameNumber: round.gameID, myTeam: currentTeam[0].teamName, myTeamID: currentTeam[0].teamID)) {
+                                            NavigationLink(destination: GameView(gameID: round.gameID, myTeam: currentTeam[0].teamName)) {
                                                 DetailScheduleView(myTeam: currentTeam[0].teamName, round: round)
                                             }
                                         }
@@ -41,6 +41,7 @@ struct ScheduleView: View {
                                 }
                             }
                         }
+                        .padding(.horizontal, -8)
                         .refreshable {
                             await viewModel.loadSchedData(currentTeam: currentTeam[0])
                         }

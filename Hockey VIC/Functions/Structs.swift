@@ -52,6 +52,25 @@ struct Round: Codable {
     var result: String
     var played: String
     var gameID: String
+    
+    init() {
+        self.id = UUID()
+        self.roundNo = ""
+        self.myDate = Date()
+        self.dateTime = ""
+        self.field = ""
+        self.venue = ""
+        self.address = ""
+        self.opponent = ""
+        self.homeTeam = ""
+        self.awayTeam = ""
+        self.homeGoals = 0
+        self.awayGoals = 0
+        self.message = ""
+        self.result = ""
+        self.played = ""
+        self.gameID = ""
+    }
 }
 
 struct Player: Identifiable {

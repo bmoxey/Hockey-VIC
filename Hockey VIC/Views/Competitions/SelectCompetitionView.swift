@@ -28,7 +28,7 @@ struct SelectCompetitionView: View {
                         .task { await loadData() }
                 } else {
                     if errMsg != "" {
-                        LoadErrorView(errMsg: errMsg)
+                        ErrorMessageView(errMsg: errMsg)
                     } else {
                         if searching {
                             DetailSearchView(searchComp: searchComp, searchDiv: searchDiv, teamsFound: teamsFound)

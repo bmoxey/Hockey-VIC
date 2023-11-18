@@ -22,19 +22,17 @@ struct DetailScheduleView: View {
                 .font(.footnote)
                 .foregroundStyle(Color.gray)
                 .padding(.bottom, -8)
-            HStack {
-                Image(ShortClubName(fullName: round.opponent))
+            HStack {            
+                Image(round.roundNo.contains("Grand Final") ? round.result: ShortClubName(fullName: round.opponent))
                     .resizable()
                     .frame(width: 60, height: 60)
                 VStack {
                     HStack {
                         Text("\(formattedDate)")
-                            .foregroundStyle(Color(round.result == "BYE" ? "AccentColor" : "DefaultColor"))
                         Spacer()
                     }
                     HStack {
                         Text("\(round.opponent) @ \(round.field)")
-                            .foregroundStyle(Color(round.result == "BYE" ? "AccentColor" : "DefaultColor"))
                         Spacer()
                     }
                 }
@@ -65,7 +63,7 @@ struct DetailScheduleView: View {
                     }
                     .frame(minWidth: 0, maxWidth: .infinity)
                     .padding(.leading, -8)
-                    if round.result == "BYE" || round.result == "No Data" {
+                    if round.result == "No Data" {
                         Text(" \(round.result) ")
                             .foregroundStyle(Color(.white))
                             .fontWeight(.bold)
@@ -96,5 +94,5 @@ struct DetailScheduleView: View {
 }
 
 #Preview {
-    DetailScheduleView(myTeam: "MHSOB", round: Round(id: UUID(), roundNo: "Round 1",  myDate: Date(), dateTime: "", field: "MBT", venue: "Melbourne Hockey Field", address: "21 Smith St", opponent: "Hawthorn", homeTeam: "Hawthorn", awayTeam: "MHSOB", homeGoals: 6, awayGoals: 11, message: "", result: "Win", played: "Completed", gameID: "1439971"))
+    DetailScheduleView(myTeam: "MHSOB", round: Round())
 }

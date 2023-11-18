@@ -8,54 +8,47 @@
 import SwiftUI
 
 struct GameView: View {
-    @EnvironmentObject private var sharedData: SharedData
     @Environment(\.presentationMode) var presentationMode
-    @State var gameNumber: String
+    @EnvironmentObject private var sharedData: SharedData
+    @StateObject private var viewModel = ViewModel()
+    @State var gameID: String
     @State var myTeam: String
-    @State var myTeamID: String
-    @State var errMsg = ""
-    @State var myRound: Round = Round(id: UUID(), roundNo: "",  myDate: Date(), dateTime: "", field: "", venue: "", address: "", opponent: "", homeTeam: "", awayTeam: "", homeGoals: 0, awayGoals: 0, message: "", result: "", played: "", gameID: "")
-    @State var myGame: Round = Round(id: UUID(), roundNo: "",  myDate: Date(), dateTime: "", field: "", venue: "", address: "", opponent: "", homeTeam: "", awayTeam: "", homeGoals: 0, awayGoals: 0, message: "", result: "", played: "", gameID: "")
-    @State private var haveData = false
-    @State private var homePlayers: [Player] = []
-    @State private var awayPlayers: [Player] = []
-    @State private var otherGames: [Round] = []
     var body: some View {
-        NavigationStack {
-            if !haveData {
+        VStack {
+            if !viewModel.haveData {
                 LoadingView()
-                    .task { await myloadData() }
             } else {
-                if errMsg != "" {
-                    ErrorMessageView(errMsg: errMsg)
+                if viewModel.errMsg != "" {
+                    ErrorMessageView(errMsg: viewModel.errMsg)
                 } else {
                     List {
-                        DetailGameView(myTeam: myTeam, myRound: myRound)
-                        DetailGroundView(myRound: myRound, myTeam: myTeam)
-                        if !homePlayers.isEmpty {
-                            Section(header: CenterSection(title: "\(myRound.homeTeam) Players")) {
-                                ForEach(homePlayers.sorted { $0.surname < $1.surname }) { player in
+                        DetailGameView(round: viewModel.round, myTeam: myTeam)
+                        DetailGroundView(round: viewModel.round, myTeam: myTeam)
+                        if !viewModel.homePlayers.isEmpty {
+                            Section(header: CenterSection(title: "\(viewModel.round.homeTeam) Players")) {
+                                ForEach(viewModel.homePlayers.sorted { $0.surname < $1.surname }) { player in
                                     DetailPlayerView(player: player)
                                 }
                             }
                         }
-                        if !awayPlayers.isEmpty {
-                            Section(header: CenterSection(title: "\(myRound.awayTeam) Players")) {
-                                ForEach(awayPlayers.sorted { $0.surname < $1.surname }) { player in
+                        if !viewModel.awayPlayers.isEmpty {
+                            Section(header: CenterSection(title: "\(viewModel.round.awayTeam) Players")) {
+                                ForEach(viewModel.awayPlayers.sorted { $0.surname < $1.surname }) { player in
                                     DetailPlayerView(player: player)
                                 }
                             }
                         }
-                        if !otherGames.isEmpty {
-                            Section(header: CenterSection(title: "Other matches between these teams")) {
-                                ForEach(otherGames, id: \.id) { item in
-                                    DetailScheduleView(myTeam: myTeam, round: item)
+                        if !viewModel.rounds.isEmpty {
+                            Section(header: CenterSection(title: "Other matches between teams")) {
+                                ForEach(viewModel.rounds, id: \.id) { round in
+                                    DetailScheduleView(myTeam: myTeam, round: round)
                                 }
                             }
                         }
                     }
+                    .padding(.horizontal, -8)
                     .refreshable {
-                        haveData = false
+                        await viewModel.loadGameData(gameID: gameID, myTeam: myTeam)
                     }
                 }
             }
@@ -73,12 +66,15 @@ struct GameView: View {
                     self.presentationMode.wrappedValue.dismiss()
                 }
             }
+            Task {
+                await viewModel.loadGameData(gameID: gameID, myTeam: myTeam)
+            }
         }
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .principal) {
                 VStack {
-                    Text(myRound.roundNo)
+                    Text(viewModel.round.roundNo)
                         .foregroundStyle(Color("BarForeground"))
                         .fontWeight(.semibold)
                 }
@@ -91,16 +87,9 @@ struct GameView: View {
         }
         .toolbarBackground(Color("BarBackground"), for: .navigationBar)
         .toolbarBackground(.visible, for: .navigationBar)
-        .toolbarBackground(Color("BarBackground"), for: .tabBar)
-        .toolbarBackground(.visible, for: .tabBar)
-    }
-
-    func myloadData() async {
-        (myRound, homePlayers, awayPlayers, otherGames, errMsg) = GetGameData(gameNumber: gameNumber, myTeam: myTeam)
-        haveData = true
     }
 }
 
 #Preview {
-    GameView(gameNumber: "1471439", myTeam: "Hawthorn", myTeamID: "123332")
+    GameView(gameID: "1471439", myTeam: "Hawthorn")
 }

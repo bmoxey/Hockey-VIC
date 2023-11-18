@@ -7,11 +7,11 @@
 
 import Foundation
 
-func GetGameData(gameNumber: String, myTeam: String) -> (Round, [Player], [Player], [Round], String) {
+func GetGameData(gameID: String, myTeam: String) -> (Round, [Player], [Player], [Round], String) {
     var lines: [String] = []
     var currentTeamName: String = ""
-    var myRound: Round = Round(id: UUID(), roundNo: "",  myDate: Date(), dateTime: "", field: "", venue: "", address: "", opponent: "", homeTeam: "", awayTeam: "", homeGoals: 0, awayGoals: 0, message: "", result: "No Data", played: "", gameID: "")
-    var myGame: Round = Round(id: UUID(), roundNo: "", myDate: Date(), dateTime: "", field: "", venue: "", address: "", opponent: "", homeTeam: "", awayTeam: "", homeGoals: 0, awayGoals: 0, message: "", result: "", played: "", gameID: "")
+    var myRound: Round = Round()
+    var myGame: Round = Round()
     var homePlayers: [Player] = []
     var awayPlayers: [Player] = []
     var otherGames: [Round] = []
@@ -22,7 +22,7 @@ func GetGameData(gameNumber: String, myTeam: String) -> (Round, [Player], [Playe
     var FF: Bool = false
     var FL: Bool = false
     var msg: String = ""
-    (lines, errMsg) = GetUrl(url: "https://www.hockeyvictoria.org.au/game/" + gameNumber + "/")
+    (lines, errMsg) = GetUrl(url: "https://www.hockeyvictoria.org.au/game/" + gameID + "/")
     for i in 0 ..< lines.count {
         if lines[i].contains("Match not found.") {
             errMsg = "Match not found."
@@ -92,6 +92,7 @@ func GetGameData(gameNumber: String, myTeam: String) -> (Round, [Player], [Playe
             }
             if lines[i].contains("https://www.hockeyvictoria.org.au/statistics/") {
                 if lines[i-3].contains("Attended") || fillins {
+                    let statsLink = String(lines[i].split(separator: "\"")[1])
                     var myName = ""
                     var surname = ""
                     var myCap = false
@@ -103,11 +104,11 @@ func GetGameData(gameNumber: String, myTeam: String) -> (Round, [Player], [Playe
                     let myGoalie = Int(lines[i+19]) ?? 0
                     var us = true
                     if currentTeamName != myTeam { us = false }
-                    let games = 0
+                    let games = 1
                     if myRound.homeTeam == currentTeamName {
-                        homePlayers.append(Player(name: myName, numberGames: games, goals: myGoals, greenCards: myGreen, yellowCards: myYellow, redCards: myRed, goalie: myGoalie, surname: surname, captain: myCap, fillin: fillins, us: us, statsLink: ""))
+                        homePlayers.append(Player(name: myName, numberGames: games, goals: myGoals, greenCards: myGreen, yellowCards: myYellow, redCards: myRed, goalie: myGoalie, surname: surname, captain: myCap, fillin: fillins, us: us, statsLink: statsLink))
                     } else {
-                        awayPlayers.append(Player(name: myName, numberGames: games, goals: myGoals, greenCards: myGreen, yellowCards: myYellow, redCards: myRed, goalie: myGoalie, surname: surname, captain: myCap, fillin: fillins, us: us, statsLink: ""))
+                        awayPlayers.append(Player(name: myName, numberGames: games, goals: myGoals, greenCards: myGreen, yellowCards: myYellow, redCards: myRed, goalie: myGoalie, surname: surname, captain: myCap, fillin: fillins, us: us, statsLink: statsLink))
                     }
                 }
                 
@@ -138,7 +139,6 @@ func GetGameData(gameNumber: String, myTeam: String) -> (Round, [Player], [Playe
                 }
             }
             if lines[i].contains("https://www.hockeyvictoria.org.au/game/") {
-                
                 if myGame.homeTeam == myTeam { myGame.opponent = myGame.awayTeam }
                 else {myGame.opponent = myGame.homeTeam}
                 if myGame.result != "No Data" {
@@ -146,7 +146,7 @@ func GetGameData(gameNumber: String, myTeam: String) -> (Round, [Player], [Playe
                 }
                 myGame.id = UUID()
                 otherGames.append(myGame)
-                myGame = Round(id: UUID(), roundNo: "", myDate: Date(), dateTime: "", field: "", venue: "", address: "", opponent: "", homeTeam: "", awayTeam: "", homeGoals: 0, awayGoals: 0, message: "", result: "", played: "", gameID: "")
+                myGame = Round()
             }
 
         }

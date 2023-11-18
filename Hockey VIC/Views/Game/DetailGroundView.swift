@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct DetailGroundView: View {
-    var myRound: Round
+    var round: Round
     var myTeam: String
     var body: some View {
         Section(header: CenterSection(title: "Ground Details")) {
@@ -18,17 +18,17 @@ struct DetailGroundView: View {
                     Image(systemName: "sportscourt.fill")
                         .resizable()
                         .frame(width: 40, height: 30)
-                        .foregroundColor(Color(myRound.homeTeam == myTeam ? .green : .red))
-                    Text(" \(myRound.field)")
+                        .foregroundColor(Color(round.homeTeam == myTeam ? .green : .red))
+                    Text(" \(round.field)")
                         .font(.largeTitle)
                     Spacer()
                 }
                 VStack {
-                    Text(myRound.venue)
+                    Text(round.venue)
                         .frame(maxWidth: .infinity, alignment: .center)
                 }
                 Button {
-                    openGoogleMaps(with: "\(myRound.venue), \(myRound.address) , Victoria, Australia", label: "\(myRound.venue)")
+                    openGoogleMaps(with: "\(round.venue), \(round.address) , Victoria, Australia", label: "\(round.venue)")
                 } label: {
                     HStack {
                         Text("Open in Google Maps")
@@ -57,6 +57,6 @@ struct DetailGroundView: View {
 }
 
 #Preview {
-    DetailGroundView(myRound: Round(id: UUID(), roundNo: "Round 1",  myDate: Date(), dateTime: "", field: "HHF", venue: "Hedley Hull Field", address: "1 Winbirra Parade, Ashwood VIC 3147", opponent: "Hawthorn", homeTeam: "Hawthorn", awayTeam: "MHSOB", homeGoals: 6, awayGoals: 7, message: "", result: "Win", played: "Completed", gameID: "1439971"), myTeam: "MHSOB")
+    DetailGroundView(round: Round(), myTeam: "MHSOB")
 }
 

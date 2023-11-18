@@ -8,58 +8,69 @@
 import SwiftUI
 
 struct DetailGameView: View {
+    var round: Round
     var myTeam: String
-    var myRound: Round
+    var formattedDate: String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "EEE d MMM @ h:mm a"
+        return dateFormatter.string(from: round.myDate)
+    }
     var body: some View {
         Section(header: CenterSection(title: "Game Details")) {
             VStack {
-                Text(myRound.dateTime)
+                Text(formattedDate)
                     .font(.footnote)
                     .foregroundStyle(Color.gray)
                     .frame(maxWidth: .infinity, alignment: .center)
-                if myRound.message != "" {
-                    Text(myRound.message)
+                if round.message != "" {
+                    Text(round.message)
                         .foregroundColor(.red)
                         .multilineTextAlignment(.center)
                         .frame(maxWidth: .infinity, alignment: .center)
                 }
+                if round.roundNo.contains("Grand Final") {
+                    Image(round.result)
+                        .resizable()
+                        .frame(width: 120, height: 120)
+                        .padding(.all, -20)
+                }
                 HStack {
-                    Image(ShortClubName(fullName: myRound.homeTeam))
+                    Image(ShortClubName(fullName: round.homeTeam))
                         .resizable()
                         .frame(width: 120, height: 120)
                     Text("VS")
-                    Image(ShortClubName(fullName: myRound.awayTeam))
+                    Image(ShortClubName(fullName: round.awayTeam))
                         .resizable()
                         .frame(width: 120, height: 120)
                 }
                 .frame(maxWidth: .infinity, alignment: .center)
                 VStack {
-                    if myRound.result != "No Data" {
+                    if round.result != "No Data" {
                         HStack {
-                            Text("\(myRound.homeGoals)")
+                            Text("\(round.homeGoals)")
                                 .font(.largeTitle)
                                 .frame(width: 140, height: 50)
-                                .background(myRound.homeTeam == myTeam ? BarBackground(result: myRound.result) : Color(.clear))
-                            Text("\(myRound.awayGoals)")
+                                .background(round.homeTeam == myTeam ? BarBackground(result: round.result) : Color(.clear))
+                            Text("\(round.awayGoals)")
                                 .font(.largeTitle)
                                 .frame(width: 140, height: 50)
-                                .background(myRound.awayTeam == myTeam ? BarBackground(result: myRound.result) : Color(.clear))
+                                .background(round.awayTeam == myTeam ? BarBackground(result: round.result) : Color(.clear))
                         }
                         .frame(maxWidth: .infinity, alignment: .center)
                     }
                     HStack {
-                        Text(myRound.homeTeam)
+                        Text(round.homeTeam)
                             .multilineTextAlignment(.center)
                             .lineLimit(nil)
                             .frame(width: 140)
-                            .fontWeight(myRound.homeTeam == myTeam ? .bold : .regular)
-                            .foregroundStyle(Color(myRound.homeTeam == myTeam ? "AccentColor" : "DefaultColor"))
-                        Text(myRound.awayTeam)
+                            .fontWeight(round.homeTeam == myTeam ? .bold : .regular)
+                            .foregroundStyle(Color(round.homeTeam == myTeam ? "AccentColor" : "DefaultColor"))
+                        Text(round.awayTeam)
                             .multilineTextAlignment(.center)
                             .lineLimit(nil)
                             .frame(width: 140)
-                            .fontWeight(myRound.awayTeam == myTeam ? .bold : .regular)
-                            .foregroundStyle(Color(myRound.awayTeam == myTeam ? "AccentColor" : "DefaultColor"))
+                            .fontWeight(round.awayTeam == myTeam ? .bold : .regular)
+                            .foregroundStyle(Color(round.awayTeam == myTeam ? "AccentColor" : "DefaultColor"))
                     }
                     .frame(maxWidth: .infinity, alignment: .center)
                 }
@@ -69,5 +80,5 @@ struct DetailGameView: View {
 }
 
 #Preview {
-    DetailGameView(myTeam: "MHSOB", myRound: Round(id: UUID(), roundNo: "Round 1", myDate: Date(), dateTime: "", field: "MBT", venue: "Melbourne Hockey Field", address: "21 Smith St", opponent: "Hawthorn", homeTeam: "Hawthorn", awayTeam: "MHSOB", homeGoals: 6, awayGoals: 7, message: "", result: "Win", played: "Completed", gameID: "1439971"))
+    DetailGameView(round: Round(), myTeam: "MHSOB")
 }

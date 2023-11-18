@@ -8,7 +8,7 @@
 import Foundation
 
 func GetRoundData(mycompID: String, myDivID: String, myTeamName: String, currentRound: String) -> (String, String, String, [Round], [String], String) {
-    var myRound = Round(id: UUID(), roundNo: "", myDate: Date(), dateTime: "", field: "", venue: "", address: "", opponent: "", homeTeam: "", awayTeam: "", homeGoals: 0, awayGoals: 0, message: "", result: "No Data", played: "", gameID: "")
+    var myRound = Round()
     var rounds = [Round]()
     var lines: [String] = []
     var byeTeams: [String] = []
@@ -88,7 +88,7 @@ func GetRoundData(mycompID: String, myDivID: String, myTeamName: String, current
                 myRound.gameID = String(lines[i].split(separator: "/")[3])
                 myRound.id = UUID()
                 rounds.append(myRound)
-                myRound = Round(id: UUID(), roundNo: "", myDate: Date(), dateTime: "", field: "", venue: "", address: "", opponent: "", homeTeam: "", awayTeam: "", homeGoals: 0, awayGoals: 0, message: "", result: "No Data", played: "", gameID: "")
+                myRound = Round()
             }
         }
     }
