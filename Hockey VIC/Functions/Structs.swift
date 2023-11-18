@@ -110,6 +110,25 @@ struct LadderItem: Codable {
     var diff: Int
     var points: Int
     var winRatio: Int
+    
+    init() {
+        self.id = UUID()
+        self.pos = 0
+        self.teamName = ""
+        self.compID = ""
+        self.teamID = ""
+        self.played = 0
+        self.wins = 0
+        self.draws = 0
+        self.losses = 0
+        self.forfeits = 0
+        self.byes = 0
+        self.scoreFor = 0
+        self.scoreAgainst = 0
+        self.diff = 0
+        self.points = 0
+        self.winRatio = 0
+    }
 }
 
 struct PlayerStat: Identifiable {

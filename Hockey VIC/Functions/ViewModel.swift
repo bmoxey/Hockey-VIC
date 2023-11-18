@@ -10,6 +10,7 @@ import Foundation
 class ViewModel: ObservableObject {
     @Published var rounds = [Round]()
     @Published var round = Round()
+    @Published var ladder = [LadderItem]()
     @Published var homePlayers = [Player]()
     @Published var awayPlayers = [Player]()
     @Published var haveData = false
@@ -24,6 +25,12 @@ class ViewModel: ObservableObject {
     @MainActor func loadGameData(gameID: String, myTeam: String) async {
         haveData = false
         (round, homePlayers, awayPlayers, rounds, errMsg) = GetGameData(gameID: gameID, myTeam: myTeam)
+        haveData = true
+    }
+    
+    @MainActor func loadLadderData(currentTeam: Teams) async {
+        haveData = false
+        (ladder, errMsg) = GetLadderData(myCompID: currentTeam.compID, myDivID: currentTeam.divID, myTeam: currentTeam.teamName)
         haveData = true
     }
 }
