@@ -41,7 +41,7 @@ struct GameView: View {
                         if !viewModel.rounds.isEmpty {
                             Section(header: CenterSection(title: "Other matches between teams")) {
                                 ForEach(viewModel.rounds, id: \.id) { round in
-                                    DetailScheduleView(myTeam: myTeam, round: round)
+                                    DetailFixtureView(myTeam: myTeam, round: round)
                                 }
                             }
                         }
@@ -54,17 +54,13 @@ struct GameView: View {
             }
         }
         .onAppear {
-            if sharedData.activeTabIndex == 0 {
-                if sharedData.refreshSchedule {
-                    sharedData.refreshSchedule = false
-                    self.presentationMode.wrappedValue.dismiss()
-                }
+            if sharedData.activeTabIndex == 0 && sharedData.refreshFixture {
+                sharedData.refreshFixture = false
+                self.presentationMode.wrappedValue.dismiss()
             }
-            if sharedData.activeTabIndex == 2 {
-                if sharedData.refreshRound {
-                    sharedData.refreshRound = false
-                    self.presentationMode.wrappedValue.dismiss()
-                }
+            if sharedData.activeTabIndex == 2 && sharedData.refreshRound {
+                sharedData.refreshRound = false
+                self.presentationMode.wrappedValue.dismiss()
             }
             Task {
                 await viewModel.loadGameData(gameID: gameID, myTeam: myTeam)

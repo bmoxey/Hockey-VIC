@@ -38,7 +38,7 @@ struct SetTeamsView: View {
                                         }
                                         if let index = usedTeams.firstIndex(of: team) {
                                             usedTeams[index].isCurrent = true
-                                            sharedData.refreshSchedule = true
+                                            sharedData.refreshFixture = true
                                             sharedData.refreshLadder = true
                                             sharedData.refreshRound = true
                                             sharedData.refreshStats = true

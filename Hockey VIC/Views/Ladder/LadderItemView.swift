@@ -27,9 +27,9 @@ struct LadderItemView: View {
                 } else {
                     List {
                         DetailLadderItemView(item: item)
-                        Section(header: CenterSection(title: "Games")) {
+                        Section(header: CenterSection(title: "Fixture")) {
                             ForEach(rounds, id: \.id) { round in
-                                DetailScheduleView(myTeam: item.teamName, round: round)
+                                DetailFixtureView(myTeam: item.teamName, round: round)
                             }
                         }
                     }

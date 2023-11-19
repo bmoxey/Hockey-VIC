@@ -17,7 +17,7 @@ struct NoGameView: View {
         ForEach(range, id: \.self) {_ in
             VStack {
                 HStack {
-                    Image("NoGame")
+                    Image("No Game")
                         .resizable()
                         .frame(width: 60, height: 60)
                     VStack {
@@ -34,7 +34,7 @@ struct NoGameView: View {
                             Spacer()
                         }
                     }
-                    Image("NoGame")
+                    Image("No Game")
                         .resizable()
                         .frame(width: 60, height: 60)
                 }

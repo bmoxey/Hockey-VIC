@@ -266,6 +266,8 @@ func BarBackground(result: String) -> Color {
         return Color.blue
     case "No Data":
         return Color.purple
+    case "No Game":
+        return Color.blue
     default:
         return Color.cyan
     }
@@ -310,4 +312,15 @@ func GetRound(fullString: String) -> String {
         .replacingOccurrences(of: "Preliminary ", with: "P")
         .replacingOccurrences(of: "Grand ", with: "G")
     return newString
+}
+
+func weekDatesBetween(lastDate: Date, endDate: Date) -> [Date] {
+    var dates: [Date] = []
+    var currentDate = Calendar.current.date(byAdding: .day, value: 10, to: lastDate)!
+    while currentDate <= endDate {
+        dates.append(Calendar.current.date(byAdding: .day, value: -3, to: currentDate)!)
+        currentDate = Calendar.current.date(byAdding: .weekOfYear, value: 1, to: currentDate)!
+    }
+
+    return dates
 }

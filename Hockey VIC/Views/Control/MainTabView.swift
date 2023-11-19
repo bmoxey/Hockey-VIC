@@ -11,14 +11,14 @@ struct MainTabView: View {
     @StateObject private var sharedData = SharedData()
     var body: some View {
         TabView(selection: $sharedData.activeTabIndex) {
-            ScheduleView()
+            FixtureView()
                 .onAppear {
                     sharedData.activeTabIndex = 0
-                }
+                } 
                 .environmentObject(sharedData)
                 .tabItem {
                     Image(systemName: "calendar")
-                    Text("Schedule")
+                    Text("Fixture")
                 }
                 .tag(0)
             LadderView()

@@ -11,6 +11,7 @@ import Combine
 
 class SharedData: ObservableObject {
     @Published var activeTabIndex: Int = 0
+    @Published var refreshFixture: Bool = false
     @Published var refreshSchedule: Bool = false
     @Published var refreshLadder: Bool = false
     @Published var refreshRound: Bool = false

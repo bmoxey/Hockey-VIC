@@ -15,6 +15,12 @@ class ViewModel: ObservableObject {
     @Published var awayPlayers = [Player]()
     @Published var haveData = false
     @Published var errMsg = ""
+
+    @MainActor func loadFixtureData(currentTeam: Teams) async {
+        haveData = false
+        (rounds, errMsg) = GetFixtureData(mycompID: currentTeam.compID, myTeamID: currentTeam.teamID, myTeamName: currentTeam.teamName)
+        haveData = true
+    }
     
     @MainActor func loadSchedData(currentTeam: Teams) async {
         haveData = false

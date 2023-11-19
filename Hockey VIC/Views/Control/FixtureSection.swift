@@ -8,11 +8,28 @@
 import SwiftUI
 
 struct FixtureSection: View {
+    var roundNo: String
+    var roundDate: Date
+    var formattedDate: String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "EEE d MMM"
+        return dateFormatter.string(from: roundDate)
+    }
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        let isWithinOneWeek = Date() < roundDate && Calendar.current.date(byAdding: .weekOfYear, value: 1, to: Date()) ?? Date() >= roundDate
+        VStack {
+            if roundNo == "Round 1" { CenterSection(title: "Fixture")}
+            HStack {
+                Text(roundNo)
+                    .foregroundStyle(isWithinOneWeek ? Color("DefaultColor") : Color.gray)
+                Spacer()
+                Text(formattedDate)
+                    .foregroundStyle(isWithinOneWeek ? Color("DefaultColor") : Color.gray)
+            }
+        }
     }
 }
 
 #Preview {
-    FixtureSection()
+    FixtureSection(roundNo: "Round 1", roundDate: Date())
 }

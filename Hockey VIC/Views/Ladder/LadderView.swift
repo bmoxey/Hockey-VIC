@@ -72,8 +72,8 @@ struct LadderView: View {
         .onAppear() {
             Task {
                 await viewModel.loadLadderData(currentTeam: currentTeam[0])
+                sharedData.refreshLadder = false
             }
-            sharedData.refreshLadder = false
         }
     }
 }
