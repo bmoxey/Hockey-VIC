@@ -42,6 +42,7 @@ struct StatisticsView: View {
                                     }
                                 }
                             }
+                            .navigationTitle("Team")
                             .environment(\.defaultMinListRowHeight, 5)
                             .refreshable {
                                 sharedData.refreshStats = true

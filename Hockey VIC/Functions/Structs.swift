@@ -36,7 +36,7 @@ struct Rounds: Codable {
     var rounds: [Round]
 }
 
-struct Round: Codable {
+struct Round: Codable, Identifiable {
     var id: UUID
     var roundNo: String
     var myDate: Date

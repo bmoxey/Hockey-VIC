@@ -16,19 +16,37 @@ struct DetailGameView: View {
         return dateFormatter.string(from: round.myDate)
     }
     var body: some View {
+        let diff = Calendar.current.dateComponents([.day, .hour, .minute], from: Date.now, to: round.myDate)
+        let isWithinOneWeek = Date() < round.myDate && Calendar.current.date(byAdding: .weekOfYear, value: 1, to: Date()) ?? Date() >= round.myDate
         Section(header: CenterSection(title: "Game Details")) {
             VStack {
                 Text(formattedDate)
                     .font(.footnote)
-                    .foregroundStyle(Color.gray)
+                    .foregroundStyle(isWithinOneWeek ? Color("DefaultColor") : Color.gray)
                     .frame(maxWidth: .infinity, alignment: .center)
-                if round.message != "" {
-                    Text(round.message)
-                        .foregroundColor(.red)
-                        .multilineTextAlignment(.center)
-                        .frame(maxWidth: .infinity, alignment: .center)
+                if diff.day! >= 0 && diff.hour! >= 0 && diff.minute! >= 0 {
+                    HStack {
+                        Text("")
+                            .frame(width: 12)
+                        Spacer()
+                        if diff.day! == 0 {
+                            Text("Starts in \(diff.hour!) hours and \(diff.minute!) minutes")
+                                .foregroundStyle(Color("AccentColor"))
+                        } else {
+                            Text("Starts in \(diff.day!) days and \(diff.hour!) hours")
+                                .foregroundStyle(isWithinOneWeek ? Color("AccentColor") :  Color(.red))
+                        }
+                        Spacer()
+                    }
+                } else {
+                    if round.message != "" {
+                        Text(round.message)
+                            .foregroundColor(.red)
+                            .multilineTextAlignment(.center)
+                            .frame(maxWidth: .infinity, alignment: .center)
+                    }
                 }
-                if round.roundNo.contains("Grand Final") {
+                if round.roundNo.contains("Grand Final") && round.result != "" {
                     Image(round.result)
                         .resizable()
                         .frame(width: 120, height: 120)

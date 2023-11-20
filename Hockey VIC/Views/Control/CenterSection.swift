@@ -14,8 +14,9 @@ struct CenterSection: View {
             Spacer()
             Text(title)
                 .foregroundStyle(Color("DefaultColor"))
-//                .foregroundStyle(Color.gray)
-//                .foregroundStyle(Color("AccentColor"))
+//                .padding(.top, 5)
+//                .padding(.bottom, 5)
+//                .textCase(nil)
             Spacer()
         }
     }

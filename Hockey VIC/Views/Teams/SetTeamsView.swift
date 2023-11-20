@@ -27,8 +27,9 @@ struct SetTeamsView: View {
                     }
                 }
                 if usedTeams.count > 1 {
-                    Section(header: CenterSection(title: "Previous Teams")) {
-                        ForEach(usedTeams, id: \.self) { team in
+                    ForEach(usedTeams.indices, id: \.self) { index1 in
+                        let team = usedTeams[index1]
+                        Section(header: FirstSection(index: index1, header: "Previous Teams")) {
                             if !currentTeam.isEmpty {
                                 if team.teamID != currentTeam[0].teamID {
                                     DetailTeamView(team: team)
@@ -49,12 +50,14 @@ struct SetTeamsView: View {
                                 }
                             }
                         }
+
+
+                    }
                         .onDelete { indexSet in
                             for index in indexSet {
                                 usedTeams[index].isUsed = false
                             }
                         }
-                    }
                 }
             }
             .navigationBarTitleDisplayMode(.inline)

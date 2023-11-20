@@ -30,21 +30,18 @@ struct RoundView: View {
                             ErrorMessageView(errMsg: errMsg)
                         } else {
                             List {
-                                
-//                                Section(header: DetailRoundHeaderView(prev: prev, current: current, next: next,
-//                            onPrevButtonTap: { loadData(roundName: prev) }, onNextButtonTap: { loadData(roundName: next) })) {
-
-                                ForEach( rounds, id: \.id) { roundByDate in
-                                    Section(header: HighlightSection(title: roundByDate.result)) {
-//                                        ForEach(roundByDate, id: \.id) { round in
-//                                            NavigationLink(destination: GameView(gameID: round.gameID, myTeam: currentTeam[0].teamName, myTeamID: currentTeam[0].teamID)) {
-//                                                DetailRoundView(myTeam: currentTeam[0].teamName, myRound: round)
-//                                                }
-//                                            }
+                                Section(header: DetailRoundHeaderView(prev: prev, current: current, next: next, onPrevButtonTap: {
+                                    loadData(roundName: prev)
+                                }, onNextButtonTap: {
+                                    loadData(roundName: next)
+                                })) {}
+                                ForEach(rounds.sorted(by: { $0.myDate < $1.myDate }), id: \.id) { round in
+                                    Section(header: HighlightSection(leftTitle: "\(formattedDate(from: round.myDate))", rightTitle: "\(formattedTime(from: round.myDate)) @ \(round.field)")) {
+                                        NavigationLink(destination: GameView(gameID: round.gameID, myTeam: currentTeam[0].teamName)) {
+                                            DetailRoundView(myTeam: currentTeam[0].teamName, myRound: round)
                                         }
-//                                    }
+                                    }
                                 }
-                                
                                 ForEach(byeTeams, id: \.self) {name in
                                     Section(header: Text("Teams with a bye")){
                                         HStack {
@@ -56,7 +53,9 @@ struct RoundView: View {
                                     }
                                 }
                             }
-                            .environment(\.defaultMinListRowHeight, 5)
+//                            .listStyle(GroupedListStyle())
+//                            .navigationTitle("Sorted Rounds").environment(\.defaultMinListRowHeight, 5)
+                            .navigationTitle("Round")
                             .refreshable {
                                 Task {
                                     haveData = false
@@ -97,7 +96,19 @@ struct RoundView: View {
             }
         }
     }
-   
+    
+    private func formattedTime(from date: Date) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "h:mm a"
+        return dateFormatter.string(from: date)
+    }
+    
+    private func formattedDate(from date: Date) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "EEE d MMM"
+        return dateFormatter.string(from: date)
+    }
+    
     func loadData(roundName: String) {
         Task {
             do {

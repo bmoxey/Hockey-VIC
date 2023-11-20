@@ -8,20 +8,20 @@
 import SwiftUI
 
 struct HighlightSection: View {
-    var title: String
+    var leftTitle: String
+    var rightTitle: String
     var body: some View {
         HStack {
+            Text(leftTitle)
+//                .foregroundStyle(Color("AccentColor"))
             Spacer()
-            Text(title)
-//                .foregroundStyle(Color("DefaultColor"))
-//                .foregroundStyle(Color.gray)
-                .foregroundStyle(Color("AccentColor"))
-//                .font(.subheadline)
-            Spacer()
+            Text(rightTitle)
+//                .foregroundStyle(Color("AccentColor"))
+
         }
         .frame(height: 5)
     }
 }
 #Preview {
-    HighlightSection(title: "asdad")
+    HighlightSection(leftTitle: "asdad", rightTitle: "ASD")
 }

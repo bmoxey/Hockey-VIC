@@ -14,6 +14,7 @@ struct GameView: View {
     @State var gameID: String
     @State var myTeam: String
     var body: some View {
+        let isWithinOneWeek = Date() < viewModel.round.myDate && Calendar.current.date(byAdding: .weekOfYear, value: 1, to: Date()) ?? Date() >= viewModel.round.myDate
         VStack {
             if !viewModel.haveData {
                 LoadingView()
@@ -23,7 +24,9 @@ struct GameView: View {
                 } else {
                     List {
                         DetailGameView(round: viewModel.round, myTeam: myTeam)
+                            .listRowBackground(isWithinOneWeek ? Color("HighlightColor") : Color(UIColor.secondarySystemGroupedBackground))
                         DetailGroundView(round: viewModel.round, myTeam: myTeam)
+                            .listRowBackground(isWithinOneWeek ? Color("HighlightColor") : Color(UIColor.secondarySystemGroupedBackground))
                         if !viewModel.homePlayers.isEmpty {
                             Section(header: CenterSection(title: "\(viewModel.round.homeTeam) Players")) {
                                 ForEach(viewModel.homePlayers.sorted { $0.surname < $1.surname }) { player in
@@ -39,8 +42,9 @@ struct GameView: View {
                             }
                         }
                         if !viewModel.rounds.isEmpty {
-                            Section(header: CenterSection(title: "Other matches between teams")) {
-                                ForEach(viewModel.rounds, id: \.id) { round in
+                            ForEach(viewModel.rounds.indices, id: \.self) { index in
+                                let round = viewModel.rounds[index]
+                                Section(header: FirstSection(index: index, header: "Other matches between teams")) {
                                     DetailFixtureView(myTeam: myTeam, round: round)
                                 }
                             }

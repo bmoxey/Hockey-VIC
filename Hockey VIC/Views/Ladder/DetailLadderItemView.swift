@@ -6,10 +6,24 @@
 //
 
 import SwiftUI
+import Charts
+
+struct Result: Identifiable {
+    let id = UUID()
+    let result: String
+    let count: Int
+}
 
 struct DetailLadderItemView: View {
     let item: LadderItem
     var body: some View {
+        let data: [Result] = [
+            Result(result: "Byes", count: item.byes),
+            Result(result: "Wins", count: item.wins),
+            Result(result: "Draws", count: item.draws),
+            Result(result: "Forfeits", count: item.forfeits),
+            Result(result: "Losses", count: item.losses)
+        ]
         Section(header: CenterSection(title: "Results")) {
             VStack {
                 HStack{
@@ -35,38 +49,51 @@ struct DetailLadderItemView: View {
                     }
                     Spacer()
                 }
-                HStack {
-                    ForEach(0 ..< item.wins, id: \.self) { _ in
-                        Image(systemName: "checkmark.square.fill")
-                            .foregroundColor(.green)
-                            .frame(width: 12, height: 12)
-                    }
-                    ForEach(0 ..< item.draws, id: \.self) { _ in
-                        Image(systemName: "minus.square.fill")
-                            .foregroundColor(.gray)
-                            .frame(width: 12, height: 12)
-                    }
-                    ForEach(0 ..< item.byes, id: \.self) { _ in
-                        Image(systemName: "hand.raised.square.fill")
-                            .foregroundColor(.cyan)
-                            .frame(width: 12, height: 12)
-                    }
-                    ForEach(0 ..< item.losses, id: \.self) { _ in
-                        Image(systemName: "xmark.square.fill")
-                            .foregroundColor(.red)
-                            .frame(width: 12, height: 12)
-                    }
-                    ForEach(0 ..< item.forfeits, id: \.self) { _ in
-                        Image(systemName: "exclamationmark.square.fill")
-                            .foregroundColor(.pink)
-                            .frame(width: 12, height: 12)
+                Chart(data) { result in
+                    BarMark(
+                        x: .value("Results", result.count)
+                    )
+                    .foregroundStyle(by: .value("Count", result.result))
+                    .annotation(position: .overlay, alignment: .center) {
+                        Text("\(result.count)")
+                            .font(.caption)
                     }
                 }
-                .frame(maxWidth: .infinity, alignment: .center)
-                Text("Wins: \(item.wins) Draws: \(item.draws) Losses: \(item.losses)")
-                    .frame(maxWidth: .infinity, alignment: .center)
-                Text("Forfeits: \(item.forfeits) Byes: \(item.byes)")
-                    .frame(maxWidth: .infinity, alignment: .center)
+                .chartLegend(.visible)
+                .frame(width: 350, height: 70)
+                .chartXAxis(.hidden)
+//                HStack {
+//                    ForEach(0 ..< item.wins, id: \.self) { _ in
+//                        Image(systemName: "checkmark.square.fill")
+//                            .foregroundColor(.green)
+//                            .frame(width: 12, height: 12)
+//                    }
+//                    ForEach(0 ..< item.draws, id: \.self) { _ in
+//                        Image(systemName: "minus.square.fill")
+//                            .foregroundColor(.orange)
+//                            .frame(width: 12, height: 12)
+//                    }
+//                    ForEach(0 ..< item.byes, id: \.self) { _ in
+//                        Image(systemName: "hand.raised.square.fill")
+//                            .foregroundColor(.cyan)
+//                            .frame(width: 12, height: 12)
+//                    }
+//                    ForEach(0 ..< item.losses, id: \.self) { _ in
+//                        Image(systemName: "xmark.square.fill")
+//                            .foregroundColor(.red)
+//                            .frame(width: 12, height: 12)
+//                    }
+//                    ForEach(0 ..< item.forfeits, id: \.self) { _ in
+//                        Image(systemName: "exclamationmark.square.fill")
+//                            .foregroundColor(.pink)
+//                            .frame(width: 12, height: 12)
+//                    }
+//                }
+//                .frame(maxWidth: .infinity, alignment: .center)
+//                Text("Wins: \(item.wins) Draws: \(item.draws) Losses: \(item.losses)")
+//                    .frame(maxWidth: .infinity, alignment: .center)
+//                Text("Forfeits: \(item.forfeits) Byes: \(item.byes)")
+//                    .frame(maxWidth: .infinity, alignment: .center)
             }
         }
         Section(header: CenterSection(title: "Goals")) {
@@ -91,3 +118,4 @@ struct DetailLadderItemView: View {
 #Preview {
     DetailLadderItemView(item: LadderItem())
 }
+

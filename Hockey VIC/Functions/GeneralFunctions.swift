@@ -261,7 +261,7 @@ func BarBackground(result: String) -> Color {
     case "-FL":
         return Color.pink
     case "Draw":
-        return Color.gray
+        return Color.orange
     case "BYE":
         return Color.blue
     case "No Data":

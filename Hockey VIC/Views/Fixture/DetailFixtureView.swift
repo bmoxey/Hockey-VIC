@@ -15,10 +15,22 @@ struct DetailFixtureView: View {
         dateFormatter.dateFormat = "h:mm a"
         return dateFormatter.string(from: round.myDate)
     }
+    var formattedDate: String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "EEE d MMM"
+        return dateFormatter.string(from: round.myDate)
+    }
     var body: some View {
         let diff = Calendar.current.dateComponents([.day, .hour, .minute], from: Date.now, to: round.myDate)
         let isWithinOneWeek = Date() < round.myDate && Calendar.current.date(byAdding: .weekOfYear, value: 1, to: Date()) ?? Date() >= round.myDate
         VStack {
+            HStack {
+                Spacer()
+                Text("\(round.roundNo) - \(formattedDate)")
+                    .foregroundStyle(isWithinOneWeek ? Color("DefaultColor") : Color.gray)
+                    .font(isWithinOneWeek ? nil : .footnote)
+                Spacer()
+            }
             HStack {
                 Image(round.roundNo.contains("Grand Final") ? round.result: ShortClubName(fullName: round.opponent))
                     .resizable()

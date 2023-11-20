@@ -23,9 +23,10 @@ struct FixtureView: View {
                         ErrorMessageView(errMsg: viewModel.errMsg)
                     } else {
                         List {
-                            ForEach(viewModel.rounds, id:\.id) {round in
+                            ForEach(viewModel.rounds.indices, id:\.self) {index in
+                                let round = viewModel.rounds[index]
                                 let isWithinOneWeek = Date() < round.myDate && Calendar.current.date(byAdding: .weekOfYear, value: 1, to: Date()) ?? Date() >= round.myDate
-                                Section(header: FixtureSection(roundNo: round.roundNo, roundDate: round.myDate)) {
+                                Section(header: FirstSection(index: index, header: "Fixture")) {
                                     if !currentTeam.isEmpty {
                                         if round.opponent == "BYE" || round.opponent == "No Game"{
                                             DetailFixtureView(myTeam: currentTeam[0].teamName, round: round)
@@ -40,6 +41,7 @@ struct FixtureView: View {
                                 }
                             }
                         }
+                        .navigationTitle("Fixture")
                         .padding(.horizontal, -8)
                         .refreshable {
                             await viewModel.loadFixtureData(currentTeam: currentTeam[0])

@@ -35,11 +35,13 @@ struct LadderView: View {
                                 }
                             }
                         }
+                        .navigationTitle("Ladder")
                         .environment(\.defaultMinListRowHeight, 5)
                         .padding(.horizontal, -8)
                         .refreshable {
                             await viewModel.loadLadderData(currentTeam: currentTeam[0])
                         }
+                        
                     }
                 }
             }
