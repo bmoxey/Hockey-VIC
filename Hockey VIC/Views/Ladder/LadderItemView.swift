@@ -26,7 +26,7 @@ struct LadderItemView: View {
                     ErrorMessageView(errMsg: errMsg)
                 } else {
                     List {
-                        DetailLadderItemView(item: item)
+                        DetailLadderItemView(item: item, maxGames: 18, maxGoals: 100)
                         Section(header: CenterSection(title: "Fixture")) {
                             ForEach(rounds, id: \.id) { round in
                                 DetailFixtureView(myTeam: item.teamName, round: round)

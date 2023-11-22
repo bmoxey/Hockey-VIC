@@ -26,23 +26,40 @@ struct DetailFixtureView: View {
         VStack {
             HStack {
                 Spacer()
+                Text("")
+                    .frame(width: 24)
                 Text("\(round.roundNo) - \(formattedDate)")
                     .foregroundStyle(isWithinOneWeek ? Color("DefaultColor") : Color.gray)
                     .font(isWithinOneWeek ? nil : .footnote)
                 Spacer()
             }
             HStack {
+                if round.result == "No Game" || round.result == "BYE" {
+                    Text("")
+                        .frame(width: 12)
+                    Image(round.opponent)
+                        .resizable()
+                        .frame(width: 60, height: 60)
+                } else {
+                    VStack {
+                        Text(round.result == "No Game" ? "" : "\(formattedTime)")
+                            .foregroundStyle(Color("DefaultColor"))
+                        Text("\(round.field)")
+                            .foregroundStyle(Color("DefaultColor"))
+                    }
+                }
+                Text(round.result == "No Game" ? "No game this week" : "\(round.opponent)")
+                    .foregroundStyle(Color("DefaultColor"))
+                    .multilineTextAlignment(.center)
+                    .lineLimit(nil)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
+                Spacer()
                 Image(round.roundNo.contains("Grand Final") ? round.result: ShortClubName(fullName: round.opponent))
                     .resizable()
                     .frame(width: 60, height: 60)
-                Text(round.result == "No Game" ? "No game this week" : "\(round.opponent)")
-                    .foregroundStyle(Color("DefaultColor"))
-                Spacer()
-                VStack {
-                    Text(round.result == "No Game" ? "" : "\(formattedTime)")
-                        .foregroundStyle(Color("DefaultColor"))
-                    Text("\(round.field)")
-                        .foregroundStyle(Color("DefaultColor"))
+                if round.result == "No Game" || round.result == "BYE" {
+                    Text("")
+                        .frame(width: 12)
                 }
             }
             if round.message != "" {
@@ -80,7 +97,6 @@ struct DetailFixtureView: View {
                             Text(String(repeating: "●", count: round.homeGoals))
                                 .foregroundStyle(round.homeTeam == myTeam ? Color.green : Color.red)
                                 .font(.system(size:20))
-                                .padding(.vertical, 0)
                                 .padding(.horizontal, 0)
                                 .multilineTextAlignment(.trailing)
                                 .lineLimit(nil)
@@ -106,7 +122,6 @@ struct DetailFixtureView: View {
                             Text(String(repeating: "●", count: round.awayGoals))
                                 .foregroundStyle(round.awayTeam == myTeam ? Color.green : Color.red)
                                 .font(.system(size:20))
-                                .padding(.vertical, 0)
                                 .padding(.horizontal, 0)
                                 .multilineTextAlignment(.leading)
                                 .lineLimit(nil)
@@ -115,10 +130,13 @@ struct DetailFixtureView: View {
                     }
                     .padding(.trailing, -8)
                     .frame(minWidth: 0, maxWidth: .infinity)
+                    if round.result == "No Game" || round.result == "BYE" {
+                        Text("")
+                            .frame(width: 12)
+                    }
                 }
             }
         }
-//        .padding(.horizontal, -8)
     }
 }
 

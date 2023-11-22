@@ -35,7 +35,7 @@ func GetLadderData(myCompID: String, myDivID: String, myTeam: String) -> ([Ladde
             myLadder.points = Int(lines[i+34]) ?? 0
             myLadder.winRatio = Int(lines[i+38]) ?? 0
             myLadder.pos = pos
-            myLadder.id = UUID()
+//            myLadder.id = myLadder.teamID
             ladder.append(myLadder)
         }
     }

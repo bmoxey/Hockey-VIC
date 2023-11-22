@@ -24,9 +24,8 @@ struct GameView: View {
                 } else {
                     List {
                         DetailGameView(round: viewModel.round, myTeam: myTeam)
-                            .listRowBackground(isWithinOneWeek ? Color("HighlightColor") : Color(UIColor.secondarySystemGroupedBackground))
+                            .listRowBackground(isWithinOneWeek ? Color("RowHighlight") : Color(UIColor.secondarySystemGroupedBackground))
                         DetailGroundView(round: viewModel.round, myTeam: myTeam)
-                            .listRowBackground(isWithinOneWeek ? Color("HighlightColor") : Color(UIColor.secondarySystemGroupedBackground))
                         if !viewModel.homePlayers.isEmpty {
                             Section(header: CenterSection(title: "\(viewModel.round.homeTeam) Players")) {
                                 ForEach(viewModel.homePlayers.sorted { $0.surname < $1.surname }) { player in

@@ -25,9 +25,11 @@ struct LadderView: View {
                         List {
                             Section(header: CenterSection(title: "Ladder")) {
                                 DetailLadderHeaderView()
-                                ForEach(viewModel.ladder, id: \.id) { item in
+                                ForEach(viewModel.ladder.indices, id: \.self) { index in
+                                    let item = viewModel.ladder[index]
                                     VStack {
-                                        NavigationLink(destination: LadderItemView(item: item, myTeamID: currentTeam[0].teamID)) {
+                                        NavigationLink(destination: TeamView(ladder: viewModel.ladder, pos: index)) {
+//                                        NavigationLink(destination: LadderItemView(item: item, myTeamID: currentTeam[0].teamID)) {
                                             DetailLadderView(myTeam: currentTeam[0].teamName, item: item)
                                         }
                                     }

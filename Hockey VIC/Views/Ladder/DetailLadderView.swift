@@ -32,9 +32,9 @@ struct DetailLadderView: View {
             Text("\(item.points)")
                 .frame(width: 35, alignment: .trailing)
                 .foregroundStyle(Color(item.teamName == myTeam ? "AccentColor" : "DefaultColor"))
-            Text("\(item.winRatio)")
-                .frame(width: 35, alignment: .trailing)
-                .foregroundStyle(Color(item.teamName == myTeam ? "AccentColor" : "DefaultColor"))
+//            Text("\(item.winRatio)")
+//                .frame(width: 35, alignment: .trailing)
+//                .foregroundStyle(Color(item.teamName == myTeam ? "AccentColor" : "DefaultColor"))
         }
     }
 }

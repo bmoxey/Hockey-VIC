@@ -88,12 +88,8 @@ struct Player: Identifiable {
     var statsLink: String
 }
 
-struct Ladder: Codable {
-    var ladder: [LadderItem]
-}
-
-struct LadderItem: Codable {
-    var id: UUID
+struct LadderItem: Hashable, Equatable {
+//    var id: String
     var pos: Int
     var teamName: String
     var compID: String
@@ -111,7 +107,7 @@ struct LadderItem: Codable {
     var winRatio: Int
     
     init() {
-        self.id = UUID()
+//        self.id = ""
         self.pos = 0
         self.teamName = ""
         self.compID = ""

@@ -14,8 +14,16 @@ struct Result: Identifiable {
     let count: Int
 }
 
+struct Goal: Identifiable {
+    let id = UUID()
+    let type: String
+    let count: Int
+}
+
 struct DetailLadderItemView: View {
     let item: LadderItem
+    let maxGames: Int
+    let maxGoals: Int
     var body: some View {
         let data: [Result] = [
             Result(result: "Byes", count: item.byes),
@@ -24,98 +32,75 @@ struct DetailLadderItemView: View {
             Result(result: "Forfeits", count: item.forfeits),
             Result(result: "Losses", count: item.losses)
         ]
+        let goals: [Goal] = [
+            Goal(type: "Goals for", count: item.scoreFor),
+            Goal(type: "Goals against", count: item.scoreAgainst)]
         Section(header: CenterSection(title: "Results")) {
             VStack {
                 HStack{
                     Spacer()
                     Text("Ladder Position: ")
-                        .font(.largeTitle)
+                        .font(.title2)
                         .foregroundStyle(Color(.gray))
                     if item.pos == 1 {
                         Text("\(item.pos)st")
-                            .font(.largeTitle)
+                            .font(.title2)
                     }
                     if item.pos == 2 {
                         Text("\(item.pos)nd")
-                            .font(.largeTitle)
+                            .font(.title2)
                     }
                     if item.pos == 3 {
                         Text("\(item.pos)rd")
-                            .font(.largeTitle)
+                            .font(.title2)
                     }
                     if item.pos > 3 {
                         Text("\(item.pos)th")
-                            .font(.largeTitle)
+                            .font(.title2)
                     }
                     Spacer()
                 }
                 Chart(data) { result in
-                    BarMark(
-                        x: .value("Results", result.count)
-                    )
+                    BarMark( x: .value("Results", result.count) )
                     .foregroundStyle(by: .value("Count", result.result))
                     .annotation(position: .overlay, alignment: .center) {
-                        Text("\(result.count)")
+                        Text(result.count > 0 ? "\(result.count)" : "")
                             .font(.caption)
                     }
                 }
                 .chartLegend(.visible)
-                .frame(width: 350, height: 70)
-                .chartXAxis(.hidden)
-//                HStack {
-//                    ForEach(0 ..< item.wins, id: \.self) { _ in
-//                        Image(systemName: "checkmark.square.fill")
-//                            .foregroundColor(.green)
-//                            .frame(width: 12, height: 12)
-//                    }
-//                    ForEach(0 ..< item.draws, id: \.self) { _ in
-//                        Image(systemName: "minus.square.fill")
-//                            .foregroundColor(.orange)
-//                            .frame(width: 12, height: 12)
-//                    }
-//                    ForEach(0 ..< item.byes, id: \.self) { _ in
-//                        Image(systemName: "hand.raised.square.fill")
-//                            .foregroundColor(.cyan)
-//                            .frame(width: 12, height: 12)
-//                    }
-//                    ForEach(0 ..< item.losses, id: \.self) { _ in
-//                        Image(systemName: "xmark.square.fill")
-//                            .foregroundColor(.red)
-//                            .frame(width: 12, height: 12)
-//                    }
-//                    ForEach(0 ..< item.forfeits, id: \.self) { _ in
-//                        Image(systemName: "exclamationmark.square.fill")
-//                            .foregroundColor(.pink)
-//                            .frame(width: 12, height: 12)
-//                    }
-//                }
-//                .frame(maxWidth: .infinity, alignment: .center)
-//                Text("Wins: \(item.wins) Draws: \(item.draws) Losses: \(item.losses)")
-//                    .frame(maxWidth: .infinity, alignment: .center)
-//                Text("Forfeits: \(item.forfeits) Byes: \(item.byes)")
-//                    .frame(maxWidth: .infinity, alignment: .center)
-            }
-        }
-        Section(header: CenterSection(title: "Goals")) {
-            VStack {
-                Text(String(repeating: "●", count: item.scoreFor))
-                    .font(.system(size: 20))
-                    .foregroundStyle(Color.green)
-                    .padding(.vertical, 0)
-                    .padding(.horizontal, -8)
-                Text(String(repeating: "●", count: item.scoreAgainst))
-                    .font(.system(size:20))
-                    .foregroundStyle(Color.red)
-                    .padding(.vertical, 0)
-                    .padding(.horizontal, -8)
-                Text("For: \(item.scoreFor) Against: \(item.scoreAgainst) Diff: \(item.diff)")
-                    .frame(maxWidth: .infinity, alignment: .center)
+                .chartXScale(domain: 0...maxGames)
+                .frame(height: 70)
+//                .transition(.scale)
+//                .id(item.teamID)
+//                .animation(.bouncy, value: item.teamID)
+
+                Chart(goals) { goal in
+                    BarMark(x: .value("Count", goal.count), y: .value("Type", goal.type))
+                        .foregroundStyle(goal.type == "Goals for" ? Color.green : Color.red)
+                        .annotation(position: .overlay, alignment: .center) {
+                            Text(goal.count > 0 ? "\(goal.count)" : "")
+                                .font(.caption)
+                        }
+                }
+                .chartLegend(.visible)
+                .chartXScale(domain: 0...maxGoals)
+//                .transition(.scale)
+//                .id(item.teamID)
+//                .animation(.bouncy, value: item.teamID)
+                HStack {
+                    Spacer()
+                    Text("Goal Difference: ")
+                        .foregroundStyle(Color(.gray))
+                    Text(item.diff < 0 ? "\(item.diff)" : "+\(item.diff)")
+                    Spacer()
+                }
             }
         }
     }
 }
 
 #Preview {
-    DetailLadderItemView(item: LadderItem())
+    DetailLadderItemView(item: LadderItem(), maxGames: 18, maxGoals: 100)
 }
 

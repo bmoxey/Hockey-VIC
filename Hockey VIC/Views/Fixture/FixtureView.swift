@@ -30,12 +30,12 @@ struct FixtureView: View {
                                     if !currentTeam.isEmpty {
                                         if round.opponent == "BYE" || round.opponent == "No Game"{
                                             DetailFixtureView(myTeam: currentTeam[0].teamName, round: round)
-                                                .listRowBackground(isWithinOneWeek ? Color("HighlightColor") : Color(UIColor.secondarySystemGroupedBackground))
+                                                .listRowBackground(isWithinOneWeek ? Color("RowHighlight") : Color(UIColor.secondarySystemGroupedBackground))
                                         } else {
                                             NavigationLink(destination: GameView(gameID: round.gameID, myTeam: currentTeam[0].teamName)) {
                                                 DetailFixtureView(myTeam: currentTeam[0].teamName, round: round)
                                             }
-                                            .listRowBackground(isWithinOneWeek ? Color("HighlightColor") : Color(UIColor.secondarySystemGroupedBackground))
+                                            .listRowBackground(isWithinOneWeek ? Color("RowHighlight") : Color(UIColor.secondarySystemGroupedBackground))
                                         }
                                     }
                                 }
