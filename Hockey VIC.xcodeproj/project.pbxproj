@@ -43,6 +43,7 @@
 		AF6F77D02B029D1600BC8F15 /* DetailCompetitionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF6F77CF2B029D1600BC8F15 /* DetailCompetitionView.swift */; };
 		AF6F77D32B029F3300BC8F15 /* GeneralFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF6F77D22B029F3300BC8F15 /* GeneralFunctions.swift */; };
 		AF6F77D52B02AD0800BC8F15 /* SwiftDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF6F77D42B02AD0800BC8F15 /* SwiftDataModel.swift */; };
+		AF71DE6E2B10287900BE391B /* ScrollingTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF71DE6D2B10287900BE391B /* ScrollingTabView.swift */; };
 		AF91F3CF2B096A2500BAF6F5 /* FixtureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF91F3CE2B096A2500BAF6F5 /* FixtureView.swift */; };
 		AF91F3D12B096B2400BAF6F5 /* GetFixtureData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF91F3D02B096B2400BAF6F5 /* GetFixtureData.swift */; };
 		AF91F3D32B096DB200BAF6F5 /* DetailFixtureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF91F3D22B096DB200BAF6F5 /* DetailFixtureView.swift */; };
@@ -100,6 +101,7 @@
 		AF6F77CF2B029D1600BC8F15 /* DetailCompetitionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailCompetitionView.swift; sourceTree = "<group>"; };
 		AF6F77D22B029F3300BC8F15 /* GeneralFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralFunctions.swift; sourceTree = "<group>"; };
 		AF6F77D42B02AD0800BC8F15 /* SwiftDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftDataModel.swift; sourceTree = "<group>"; };
+		AF71DE6D2B10287900BE391B /* ScrollingTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollingTabView.swift; sourceTree = "<group>"; };
 		AF91F3CE2B096A2500BAF6F5 /* FixtureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FixtureView.swift; sourceTree = "<group>"; };
 		AF91F3D02B096B2400BAF6F5 /* GetFixtureData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetFixtureData.swift; sourceTree = "<group>"; };
 		AF91F3D22B096DB200BAF6F5 /* DetailFixtureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailFixtureView.swift; sourceTree = "<group>"; };
@@ -221,6 +223,7 @@
 				AFE291E02B03BD7B000C9B31 /* CenterSection.swift */,
 				AF608B602B06BE3500BF5D5C /* HighlightSection.swift */,
 				AF46CC402B0986EA00673133 /* FirstSection.swift */,
+				AF71DE6D2B10287900BE391B /* ScrollingTabView.swift */,
 			);
 			path = Control;
 			sourceTree = "<group>";
@@ -408,6 +411,7 @@
 				AFE291DB2B03AB17000C9B31 /* ErrorMessageView.swift in Sources */,
 				AF40FD5D2B043039006FAE35 /* DetailLadderHeaderView.swift in Sources */,
 				AF40FD672B044E11006FAE35 /* PlayerStatsView.swift in Sources */,
+				AF71DE6E2B10287900BE391B /* ScrollingTabView.swift in Sources */,
 				AF40FD652B044DFB006FAE35 /* DetailStatsView.swift in Sources */,
 				AFCAEA422B038446008CA455 /* SelectTeamView.swift in Sources */,
 				AF608B612B06BE3500BF5D5C /* HighlightSection.swift in Sources */,

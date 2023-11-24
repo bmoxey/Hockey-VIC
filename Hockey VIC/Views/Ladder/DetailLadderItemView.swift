@@ -8,13 +8,13 @@
 import SwiftUI
 import Charts
 
-struct Result: Identifiable {
+struct Result: Equatable, Identifiable {
     let id = UUID()
     let result: String
     let count: Int
 }
 
-struct Goal: Identifiable {
+struct Goal: Equatable, Identifiable {
     let id = UUID()
     let type: String
     let count: Int
@@ -35,7 +35,7 @@ struct DetailLadderItemView: View {
         let goals: [Goal] = [
             Goal(type: "Goals for", count: item.scoreFor),
             Goal(type: "Goals against", count: item.scoreAgainst)]
-        Section(header: CenterSection(title: "Results")) {
+        Section(header: CenterSection(title: "Status")) {
             VStack {
                 HStack{
                     Spacer()
@@ -60,34 +60,33 @@ struct DetailLadderItemView: View {
                     }
                     Spacer()
                 }
+                
                 Chart(data) { result in
-                    BarMark( x: .value("Results", result.count) )
+                    BarMark( x: .value("Result", result.result), y: .value("Results", result.count))
                     .foregroundStyle(by: .value("Count", result.result))
-                    .annotation(position: .overlay, alignment: .center) {
+                    .annotation(position: .top, alignment: .center) {
                         Text(result.count > 0 ? "\(result.count)" : "")
                             .font(.caption)
                     }
                 }
-                .chartLegend(.visible)
-                .chartXScale(domain: 0...maxGames)
-                .frame(height: 70)
-//                .transition(.scale)
-//                .id(item.teamID)
-//                .animation(.bouncy, value: item.teamID)
+                .chartLegend(.hidden)
+                .chartYScale(domain: 0...Double(maxGames) * 1.05)
+                .transition(.scale)
+                .animation(.spring, value: data)
 
                 Chart(goals) { goal in
                     BarMark(x: .value("Count", goal.count), y: .value("Type", goal.type))
                         .foregroundStyle(goal.type == "Goals for" ? Color.green : Color.red)
-                        .annotation(position: .overlay, alignment: .center) {
+                        .annotation(position: .trailing, alignment: .center) {
                             Text(goal.count > 0 ? "\(goal.count)" : "")
                                 .font(.caption)
                         }
                 }
                 .chartLegend(.visible)
-                .chartXScale(domain: 0...maxGoals)
-//                .transition(.scale)
-//                .id(item.teamID)
-//                .animation(.bouncy, value: item.teamID)
+                .chartXScale(domain: 0...Double(maxGoals) * 1.05)
+                .transition(.scale)
+                .animation(.spring, value: goals)
+                
                 HStack {
                     Spacer()
                     Text("Goal Difference: ")

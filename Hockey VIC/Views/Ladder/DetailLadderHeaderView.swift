@@ -26,13 +26,13 @@ struct DetailLadderHeaderView: View {
                 .font(.footnote)
                 .foregroundStyle(Color(.gray))
                 .frame(width: 35, alignment: .trailing)
-            Text("WR")
-                .font(.footnote)
-                .foregroundStyle(Color(.gray))
-                .frame(width: 35, alignment: .trailing)
+//            Text("WR")
+//                .font(.footnote)
+//                .foregroundStyle(Color(.gray))
+//                .frame(width: 35, alignment: .trailing)
             Text("")
                 .font(.footnote)
-                .frame(width: 12)
+                .frame(width: 6)
         }
         .frame(height: 5)
     }
